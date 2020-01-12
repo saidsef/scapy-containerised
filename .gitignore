@@ -1,0 +1,4 @@
+# files/folders to ignore
+*.swp
+*.pcap
+*.tmp
