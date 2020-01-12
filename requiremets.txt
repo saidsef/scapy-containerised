@@ -1,2 +1,5 @@
 -i https://pypi.org/simple
+cryptography==2.8
+geoip2==3.0.0
+pyx==0.15
 scapy[basic]==2.4.3
