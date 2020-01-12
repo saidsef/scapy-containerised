@@ -1,0 +1,2 @@
+-i https://pypi.org/simple
+scapy[basic]==2.4.3
