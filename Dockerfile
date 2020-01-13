@@ -21,5 +21,5 @@ VOLUME ["/data"]
 
 EXPOSE $PORT
 
-ENTRYPOINT ttyd -p $PORT -d sh -x
+ENTRYPOINT ttyd -p $PORT -d
 CMD python -m scapy.__init__
