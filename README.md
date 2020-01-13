@@ -7,7 +7,7 @@ Scapy enables the user to send, sniff and dissect and forge network packets. Thi
 Scapy is usable either as a shell or as a library. For further details, please head over to [Getting started with Scapy](https://scapy.readthedocs.io/en/latest/introduction.html), which is part of the documentation.
 
 ## Prerequisite
- - Container runtime
+ - Container runtime (needs to run privileged mode)
  - Some Python Knowledge
  - Have read [Scapy docs](https://scapy.readthedocs.io/en/latest/introduction.html)
 
@@ -25,6 +25,11 @@ docker build -t saidsef/scapy-containerised:latest .
 
 ```shell
 docker run -d --net=host --privileged -v /path/to/geoip2:/data saidsef/scapy-containerised:latest
+```
+
+Than visit:
+```sh
+http://localhost:8080
 ```
 
 ## Deployment
