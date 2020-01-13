@@ -2,4 +2,5 @@
 cryptography==2.8
 geoip2==3.0.0
 pyx==0.15
+#matplotlib==3.1.2
 scapy[basic]==2.4.3
