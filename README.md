@@ -32,6 +32,13 @@ Than visit:
 http://localhost:8080
 ```
 
+In the browser termonal type:
+```sh
+python -m scapy
+```
+
+To start Scapy in interactive mode. 
+
 ## Deployment
  - Deployment steps TODO
 
