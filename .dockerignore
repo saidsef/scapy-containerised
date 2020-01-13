@@ -2,3 +2,5 @@
 *.swp
 *.pcap
 *.tmp
+.git/*
+.travis.yml
