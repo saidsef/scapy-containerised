@@ -28,22 +28,26 @@ docker run -d --net=host --privileged -v /path/to/geoip2:/data saidsef/scapy-con
 ```
 
 Than visit:
-```sh
+```shell
 http://localhost:8080
 ```
 
 In the browser termonal type:
-```sh
+```shell
 python -m scapy
 ```
 
 To start Scapy in interactive mode. 
 
 ## Deployment
- - Deployment steps TODO
+
+```shell
+kubectl apply -k ./deployment
+```
 
 ## Sniff Packets
 
-```sh
-sniff(iface="ens3", prn=lambda x:x.show(), lfilter=lambda x: TLS in x, count=100)  
+```shell
+> load_layer("tls")
+> sniff(iface="ens3", prn=lambda x: x.show(), lfilter=lambda x: TLS in x, count=100)
 ```
