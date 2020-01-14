@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: scapy
+  labels:
+    name: scapy
+    app: scapy
+spec:
+  type: ClusterIP
+  selector:
+    app: scapy
+  ports:
+    - name: term
+      protocol: TCP
