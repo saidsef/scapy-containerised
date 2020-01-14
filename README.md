@@ -28,22 +28,30 @@ docker run -d --net=host --privileged -v /path/to/geoip2:/data saidsef/scapy-con
 ```
 
 Than visit:
-```sh
+```shell
 http://localhost:8080
 ```
 
 In the browser termonal type:
-```sh
-python -m scapy
+```shell
+python -m scapy.__init__
 ```
 
-To start Scapy in interactive mode. 
+To start Scapy in interactive mode.
 
 ## Deployment
- - Deployment steps TODO
+> To expose host interface to container enable `hostNetwork: true` in `deployment.yml` file.  [Consider security implications](https://kubernetes.io/docs/concepts/configuration/overview/)
+> Make sure the `PORT` isn't already bound to another service - if you choose to run the service on a different PORT make sure you update the relevant fields.
+
+```shell
+kubectl apply -k ./deployment
+```
 
 ## Sniff Packets
+> Select an interface `iface` name from `get_if_list()` result
 
-```sh
-sniff(iface="ens3", prn=lambda x:x.show(), lfilter=lambda x: TLS in x, count=100)  
+```shell
+# load_layer("tls")
+# get_if_list()
+# sniff(iface="ens3", prn=lambda x: x.show(), lfilter=lambda x: TLS in x, count=100)
 ```
