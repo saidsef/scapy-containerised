@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scapy
+  namespace: web
+  labels:
+    name: classifier
+    app: scapy
+spec:
+  revisionHistoryLimit: 1
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scapy
+  template:
+    metadata:
+      labels:
+        app: scapy
+    spec:
+      #hostNetwork: true
+      containers:
+      - name: scapy
+        image: saidsef/scapy-containerised:latest
+        args:
+          - python
+          - -m
+          - scapy
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+        env:
+          - name: "PORT"
+            value: "8080"
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+          name: term
+        resources:
+          requests:
+           memory: "128Mi"
+           cpu: "50m"
+          limits:
+            memory: "512Mi"
+            cpu: "100m"
+        livenessProbe:
+          exec:
+            command:
+              - pgrep
+              - ttyd
+          initialDelaySeconds: 5
+          periodSeconds: 5
