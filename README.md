@@ -47,6 +47,16 @@ To start Scapy in interactive mode.
 kubectl apply -k ./deployment
 ```
 
+To view, bind Kubernetes service port loaclly:
+```shell
+kubectl port-forward --namespace web svc/scapy 8080:8080
+```
+
+Than visit:
+```shell
+http://localhost:8080
+```
+
 ## Sniff Packets
 > Select an interface `iface` name from `get_if_list()` result
 
