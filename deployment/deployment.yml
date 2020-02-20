@@ -27,7 +27,7 @@ spec:
       containers:
       - name: scapy
         image: saidsef/scapy-containerised:latest
-        args:
+        command:
           - python
           - -m
           - scapy
