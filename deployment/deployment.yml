@@ -23,14 +23,10 @@ spec:
       labels:
         app: scapy
     spec:
-      #hostNetwork: true
+      # hostNetwork: true
       containers:
       - name: scapy
         image: saidsef/scapy-containerised:latest
-        args:
-          - python
-          - -m
-          - scapy
         imagePullPolicy: Always
         securityContext:
           privileged: true
