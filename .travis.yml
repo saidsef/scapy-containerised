@@ -21,7 +21,5 @@ script:
   - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t saidsef/scapy-containerised:$TAG --push .
 notifications:
   email: true
-  on_success: always
-  on_failure: change
 after_success:
   - echo "All done!"
