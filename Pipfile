@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-cryptography = "==2.8"
+cryptography = "==2.9.2"
 geoip2 = "==3.0.0"
 scapy = {extras = ["basic"],version = "==2.4.3"}
 PyX = "==0.15"
