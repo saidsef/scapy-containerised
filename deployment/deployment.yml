@@ -29,7 +29,12 @@ spec:
         image: saidsef/scapy-containerised:latest
         imagePullPolicy: Always
         securityContext:
+          allowPrivilegeEscalation: true
           privileged: true
+          capabilities:
+            add:
+              - NET_ADMIN
+              - SYS_TIME
         env:
           - name: "PORT"
             value: "8080"
