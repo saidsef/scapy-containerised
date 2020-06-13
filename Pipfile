@@ -8,7 +8,7 @@ verify_ssl = true
 [packages]
 cryptography = "==2.9.2"
 geoip2 = "==3.0.0"
-scapy = {extras = ["basic"],version = "==2.4.3"}
+scapy = {extras = ["complete"], version = "==2.4.3"}
 PyX = "==0.15"
 
 [requires]
