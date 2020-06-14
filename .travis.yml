@@ -18,7 +18,7 @@ script:
    else
      export TAG=$TRAVIS_BRANCH
    fi
-  - docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t saidsef/scapy-containerised:$TAG --push .
+  - docker buildx build --platform linux/amd64,linux/arm64 -t saidsef/scapy-containerised:$TAG --push .
 notifications:
   email: true
 after_success:
