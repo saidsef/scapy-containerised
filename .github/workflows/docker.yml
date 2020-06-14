@@ -1,4 +1,4 @@
-name: ES Docker Image CI
+name: Docker Image CI
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
       run: |
           # GitHub Action doesn't support docker experimental features
           # docker builder build --platform linux/amd64,linux/arm64,linux/arm/v7 -t saidsef/scapy-containerised:${GITHUB_REF##*/} .
-          docker builder build --platform linux/amd64,linux/arm64 -t saidsef/scapy-containerised:${GITHUB_REF##*/} .
+          docker build -t saidsef/scapy-containerised:${GITHUB_REF##*/} .
           trivy --no-progress --exit-code 1 --severity HIGH,CRITICAL saidsef/scapy-containerised:${GITHUB_REF##*/} || true
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
           docker push saidsef/scapy-containerised:${GITHUB_REF##*/}
