@@ -1,0 +1,33 @@
+name: ES Docker Image CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    - cron: '0 9 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Pre-Build
+      run: |
+          sudo apt-get install wget apt-transport-https gnupg
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+          echo deb https://aquasecurity.github.io/trivy-repo/deb bionic main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+          sudo apt-get update
+          sudo apt-get upgrade -yq
+          sudo apt-get install -y trivy
+    - name: Build Docker image
+      run: |
+          # GitHub Action doesn't support docker experimental features
+          # docker builder build --platform linux/amd64,linux/arm64,linux/arm/v7 -t saidsef/scapy-containerised:${GITHUB_REF##*/} .
+          docker builder build --platform linux/amd64,linux/arm64 -t saidsef/scapy-containerised:${GITHUB_REF##*/} .
+          trivy --no-progress --exit-code 1 --severity HIGH,CRITICAL saidsef/scapy-containerised:${GITHUB_REF##*/} || true
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+          docker push saidsef/scapy-containerised:${GITHUB_REF##*/}
