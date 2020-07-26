@@ -7,9 +7,10 @@ Scapy enables the user to send, sniff and dissect and forge network packets. Thi
 Scapy is usable either as a shell or as a library. For further details, please head over to [Getting started with Scapy](https://scapy.readthedocs.io/en/latest/introduction.html), which is part of the documentation.
 
 ## Prerequisite
- - Container runtime (needs to run privileged mode)
- - Some Python Knowledge
- - Have read [Scapy docs](https://scapy.readthedocs.io/en/latest/introduction.html)
+
+- Container runtime (needs to run privileged mode)
+- Some Python Knowledge
+- Have a read [Scapy docs](https://scapy.readthedocs.io/en/latest/introduction.html)
 
 ## Installation
 
@@ -28,11 +29,13 @@ docker run -d --net=host --privileged -v /path/to/geoip2:/data saidsef/scapy-con
 ```
 
 Than visit:
+
 ```shell
 http://localhost:8080
 ```
 
 In the browser termonal type:
+
 ```shell
 python -m scapy.__init__
 ```
@@ -48,16 +51,19 @@ kubectl apply -k ./deployment
 ```
 
 To view, bind Kubernetes service port loaclly:
+
 ```shell
 kubectl port-forward --namespace web svc/scapy 8080:8080
 ```
 
 Than visit:
+
 ```shell
 http://localhost:8080
 ```
 
 ## Sniff Packets
+
 > Select an interface `iface` name from `get_if_list()` result
 
 ```shell
