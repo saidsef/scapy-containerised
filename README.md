@@ -43,6 +43,7 @@ python -m scapy.__init__
 To start Scapy in interactive mode.
 
 ## Deployment
+
 > To expose host interface to container enable `hostNetwork: true` in `deployment.yml` file.  [Consider security implications](https://kubernetes.io/docs/concepts/configuration/overview/)
 > Make sure the `PORT` isn't already bound to another service - if you choose to run the service on a different PORT make sure you update the relevant fields.
 
