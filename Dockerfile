@@ -9,7 +9,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 RUN apk add -U --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
-        build-base gcc musl-dev python3-dev python3-setuptools libstdc++ openblas-dev jpeg-dev zlib-dev \
+        build-base gcc musl-dev python3-dev libstdc++ openblas-dev jpeg-dev zlib-dev \
         libpng libpng-dev freetype freetype-dev libffi libffi-dev openssl openssl-dev \
         tcpdump imagemagick graphviz ttyd texlive libressl libpcap libjpeg && \
     pip3 install --no-cache -r requirements.txt && \
