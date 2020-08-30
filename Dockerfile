@@ -16,10 +16,12 @@ RUN apk add -U --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge
     apk del --purge build-base freetype-dev gcc musl-dev python3-dev libffi-dev libpng-dev libstdc++ openssl-dev openblas-dev jpeg-dev zlib-dev && \
     rm -rfv /var/cache/apk/*
 
+ADD https://github.com/secdev/scapy/archive/master.zip /app
+
 # GeoIP2 data directory
 VOLUME ["/data"]
 
 EXPOSE $PORT
 
 ENTRYPOINT ttyd -p $PORT sh
-CMD python -m scapy.__init__
+CMD ./run_scapy
