@@ -7,9 +7,11 @@ verify_ssl = true
 
 [packages]
 cryptography = "==2.9.2"
-geoip2 = "==3.0.0"
-scapy = {extras = ["complete"], version = "==2.4.3"}
+geoip2 = "==4.0.2"
+numpy = "==1.18.5"
+matplotlib = "==3.2.2"
+scapy = {extras = ["complete"], version = "==2.4.4"}
 PyX = "==0.15"
 
 [requires]
-python_version = "3.8"
+python_version = "3.7"
