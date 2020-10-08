@@ -3,7 +3,7 @@ FROM python:3.7-alpine
 LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
 
 ENV PORT ${PORT:-8080}
-ENV VERSION "v2.4.4"
+ENV VERSION "v2.5.0"
 
 WORKDIR /app
 
@@ -16,11 +16,6 @@ RUN apk add -U --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge
     pip3 install --no-cache -r requirements.txt && \
     apk del --purge build-base freetype-dev gcc musl-dev python3-dev libffi-dev libpng-dev libstdc++ openssl-dev openblas-dev jpeg-dev zlib-dev && \
     rm -rfv /var/cache/apk/*
-
-ADD https://github.com/secdev/scapy/archive/v2.4.4.zip /app
-
-RUN unzip ${VERSION} -d . && \
-    rm -fv ${VERSION}.zip
 
 # GeoIP2 data directory
 VOLUME ["/data"]
