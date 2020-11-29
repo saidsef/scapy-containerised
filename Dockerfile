@@ -3,7 +3,7 @@ FROM python:3-alpine
 LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
 
 ENV PORT ${PORT:-8080}
-ENV VERSION "1.6.1"
+ENV VERSION 1.6.1
 
 WORKDIR /app
 
