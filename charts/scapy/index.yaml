@@ -1,3 +1,22 @@
 apiVersion: v1
-entries: {}
-generated: "2020-11-30T23:54:32.355495Z"
+entries:
+  scapy:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-12-01T15:53:25.706295Z"
+    description: Scapy Helm chart for Kubernetes
+    digest: 2372aaa290a9a0cca0e79aebe7702669c1075332f66f1f7863133ae29c0857a0
+    keywords:
+    - scapy
+    - kubernetes
+    kubeVersion: '>= 1.17'
+    maintainers:
+    - email: saidsef@gamil.com
+      name: Said Sef
+      url: https://saidsef.co.uk/
+    name: scapy
+    type: application
+    urls:
+    - scapy-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-12-01T15:53:25.705644Z"
