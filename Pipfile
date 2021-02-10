@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-cryptography = "==3.2"
+cryptography = "==3.3.2"
 geoip2 = "==4.0.2"
 numpy = "==1.18.5"
 matplotlib = "==3.2.2"
