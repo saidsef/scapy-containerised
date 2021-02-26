@@ -5,3 +5,4 @@ pyx==0.15
 numpy==1.18.5
 matplotlib==3.2.2
 scapy[complete]==2.4.4
+aiohttp>=3.7.4
