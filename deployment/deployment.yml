@@ -45,7 +45,7 @@ spec:
         ports:
         - containerPort: 8080
           protocol: TCP
-          name: term
+          name: tcp-term
         resources:
           requests:
            memory: "128Mi"
