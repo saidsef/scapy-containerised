@@ -11,6 +11,6 @@ spec:
   selector:
     app: scapy
   ports:
-    - name: term
+    - name: tcp-term
       protocol: TCP
       port: 8080
