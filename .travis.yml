@@ -1,17 +1,25 @@
-language: ruby
+language: bash
 
 services:
   - docker
 
+git:
+  depth: 50
+  submodules: true
+
 before_script:
+  - docker version
   - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
 
 script:
+  - docker build -t saidsef/scapy-containerised:$TRAVIS_BRANCH .
+
+after_script:
   - |
    if [ "$TRAVIS_BRANCH" == "master" ]; then
-     export TAG="latest"
-   else
-     export TAG="$TRAVIS_BRANCH"
+     docker tag push saidsef/scapy-containerised:$TRAVIS_BRANCH push saidsef/scapy-containerised:latest
    fi
-  - docker build -t saidsef/scapy-containerised:$TAG .
   - docker push saidsef/scapy-containerised
+
+notifications:
+  email: true
