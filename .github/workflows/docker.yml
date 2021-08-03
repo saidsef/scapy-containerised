@@ -18,6 +18,8 @@ jobs:
     - name: Set Tag Name
       run: |
         echo "TAG=$(echo ${GITHUB_REF##*/})" >> $GITHUB_ENV
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
     - name: Build docker image
       run: |
         docker build -t saidsef/scapy-containerised:${{ env.TAG }} .
