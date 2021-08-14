@@ -40,3 +40,40 @@ jobs:
     - name: Build docker image
       run: |
         docker push saidsef/scapy-containerised:${{ env.TAG }}
+  tagging:
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.ref, 'master') }}
+    needs: [build]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Set Tag Value
+        run: |
+          echo "DATE=v$(echo `date +'%Y.%m'`)" >> $GITHUB_ENV
+      - name: Create tag
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/${{ env.DATE }}",
+              sha: context.sha
+            })
+  test:
+    runs-on: ubuntu-latest
+    if: ${{ ! contains(github.ref, 'master') }}
+    needs: [build]
+    steps:
+      - name: Create k8s Kind Cluster
+        uses: helm/kind-action@v1.2.0
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Run test
+        run: |
+          kubectl cluster-info
+          NS=`cat deployment/kustomization.yml  | grep namespace | awk '{ print $2 }'`
+          kubectl create namespace $NS
+          kubectl apply -k deployment/
+          kubectl get all -n $NS
