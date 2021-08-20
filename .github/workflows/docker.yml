@@ -4,11 +4,23 @@ on:
   push:
     branches:
       - master
+    paths:
+      - "Dockerfile"
+      - "Pipfile"
+      - "Pipfile.lock"
+      - "requirements.txt"
+      - "scripts/**"
   pull_request:
     branches:
       - master
+    paths:
+      - "Dockerfile"
+      - "Pipfile"
+      - "Pipfile.lock"
+      - "requirements.txt"
+      - "scripts/**"
   schedule:
-    - cron: '0 9 * * 2'
+    - cron: '0 9 * */1 2'
 
 jobs:
   build:
@@ -19,6 +31,8 @@ jobs:
       run: |
         echo "TAG=$(echo ${GITHUB_REF##*/})" >> $GITHUB_ENV
     - name: Build docker image
+      env:
+        DOCKER_BUILDKIT: 1
       run: |
         docker build -t saidsef/scapy-containerised:${{ env.TAG }} .
     - name: Run Trivy vulnerability scanner
@@ -40,30 +54,10 @@ jobs:
     - name: Build docker image
       run: |
         docker push saidsef/scapy-containerised:${{ env.TAG }}
-  tagging:
-    runs-on: ubuntu-latest
-    if: ${{ contains(github.ref, 'master') }}
-    needs: [build]
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-      - name: Set Tag Value
-        run: |
-          echo "DATE=v$(echo `date +'%Y.%m'`)" >> $GITHUB_ENV
-      - name: Create tag
-        uses: actions/github-script@v3
-        with:
-          github-token: ${{ github.token }}
-          script: |
-            github.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: "refs/tags/${{ env.DATE }}",
-              sha: context.sha
-            })
+
   test:
     runs-on: ubuntu-latest
-    if: ${{ ! contains(github.ref, 'master') }}
+    if: ${{ ! contains(github.ref, 'master') && github.event_name != 'schedule' }}
     needs: [build]
     steps:
       - name: Create k8s Kind Cluster
