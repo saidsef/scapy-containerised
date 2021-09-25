@@ -3,6 +3,24 @@ entries:
   scapy:
   - apiVersion: v2
     appVersion: 1.20.0
+    created: "2021-09-25T16:00:33.33185209Z"
+    description: Scapy Helm chart for Kubernetes
+    digest: 60d367a3c6d7b2adfb9a74b9a554f8724cad9579de90c80fe57ba76c3f6f6e3b
+    keywords:
+    - scapy
+    - kubernetes
+    kubeVersion: '>= 1.20'
+    maintainers:
+    - email: saidsef@gamil.com
+      name: Said Sef
+      url: https://saidsef.co.uk/
+    name: scapy
+    type: application
+    urls:
+    - https://github.com/saidsef/scapy-containerised/releases/download/scapy-0.2.1/scapy-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: 1.20.0
     created: "2021-09-25T15:59:09.879307818Z"
     description: Scapy Helm chart for Kubernetes
     digest: d13c9b995d76cc56f104c4cc8587d27d3f8ef50d8bc261168689551b25ca0da8
@@ -19,4 +37,4 @@ entries:
     urls:
     - https://github.com/saidsef/scapy-containerised/releases/download/scapy-0.2.0/scapy-0.2.0.tgz
     version: 0.2.0
-generated: "2021-09-25T15:59:09.879463564Z"
+generated: "2021-09-25T16:00:33.331990515Z"
