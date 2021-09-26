@@ -2,7 +2,7 @@
 replicaCount: 1
 
 image:
-  repository: saidsef/scapy-containerised
+  repository: docker.io/saidsef/scapy-containerised
   port: 8080
   pullPolicy: IfNotPresent
   tag: latest
@@ -14,7 +14,7 @@ fullnameOverride: ""
 serviceAccount:
   create: true
   annotations: {}
-  name: ""
+  name: "scapy"
 
 podAnnotations: {}
 
@@ -39,17 +39,17 @@ service:
 
 resources:
   requests:
-    memory: "128Mi"
-    cpu: "50m"
-  limits:
-    memory: "512Mi"
+    memory: "1Gi"
     cpu: "100m"
+  limits:
+    memory: "2Gi"
+    cpu: "200m"
 
 autoscaling:
   enabled: false
   minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 90
   # targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
