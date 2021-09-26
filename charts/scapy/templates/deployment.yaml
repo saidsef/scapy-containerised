@@ -57,6 +57,10 @@ spec:
             failureThreshold: 2
             successThreshold: 1
             timeoutSeconds: 3
+          volumeMounts:
+            - name: tempfile
+              mountPath: /var/tmp
+              subPath: vartemp
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -71,3 +75,6 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: tempfile
+          emptyDir: {}
