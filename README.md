@@ -45,7 +45,18 @@ To start Scapy in interactive mode.
 ## Deployment
 
 > To expose host interface to container enable `hostNetwork: true` in `deployment.yml` file.  [Consider security implications](https://kubernetes.io/docs/concepts/configuration/overview/)
+
 > Make sure the `PORT` isn't already bound to another service - if you choose to run the service on a different PORT make sure you update the relevant fields.
+
+### HELM
+
+```shell
+helm repo add scapy https://saidsef.github.io/scapy-containerised/
+helm repo update
+helm upgrade --install scapy scapy/scapy --namespace scay --create-namespace
+```
+
+### Kubectl
 
 ```shell
 kubectl apply -k ./deployment
@@ -72,3 +83,13 @@ http://localhost:8080
 # get_if_list()
 # sniff(iface="ens3", prn=lambda x: x.show(), lfilter=lambda x: TLS in x, count=100)
 ```
+
+## Source
+
+Our latest and greatest source of Jenkins can be found on [GitHub](#deployment). Fork us!
+
+## Contributing
+
+We would :heart: you to contribute by making a [pull request](https://github.com/saidsef/scapy-containerised/pulls).
+
+Please read the official [Contribution Guide](./CONTRIBUTING.md) for more information on how you can contribute.
