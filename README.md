@@ -86,7 +86,7 @@ http://localhost:8080
 
 ## Source
 
-Our latest and greatest source of Jenkins can be found on [GitHub](#deployment). Fork us!
+Our latest and greatest source of scapy-containerised can be found on [GitHub](#deployment). Fork us!
 
 ## Contributing
 
