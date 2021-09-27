@@ -1,7 +1,6 @@
 name: Charts
 
 on:
-  push:
   workflow_run:
     workflows:
       - Tagging
@@ -9,6 +8,8 @@ on:
       - completed
     branch:
       - main
+    paths:
+      - "charts/*"
   workflow_dispatch:
 
 jobs:
