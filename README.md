@@ -65,7 +65,7 @@ kubectl apply -k ./deployment
 To view, bind Kubernetes service port loaclly:
 
 ```shell
-kubectl port-forward --namespace web svc/scapy 8080:8080
+kubectl port-forward --namespace scapy svc/scapy 8080:8080
 ```
 
 Than visit:
