@@ -53,7 +53,7 @@ To start Scapy in interactive mode.
 ```shell
 helm repo add scapy https://saidsef.github.io/scapy-containerised/
 helm repo update
-helm upgrade --install scapy scapy/scapy --namespace scay --create-namespace
+helm upgrade --install scapy scapy/scapy --namespace scapy --create-namespace
 ```
 
 ### Kubectl
