@@ -6,3 +6,4 @@ numpy==1.22.1
 matplotlib==3.4.3
 scapy[complete]==2.4.5
 aiohttp>=3.8.1
+pillow>=9.0.1
