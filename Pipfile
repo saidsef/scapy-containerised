@@ -11,6 +11,7 @@ matplotlib = "==3.4.3"
 scapy = {version = "==2.4.5", extras = ["complete"]}
 aiohttp = ">=3.8.1"
 PyX = "==0.15"
+Pillow = ">=9.0.1"
 
 [dev-packages]
 
