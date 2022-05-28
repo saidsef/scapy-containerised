@@ -6,6 +6,9 @@ metadata:
   labels:
     name: scapy
     app: scapy
+  annotations:
+    app.kubernetes.io/name: scappy
+    app.kubernetes.io/instance: scappy
 spec:
   type: ClusterIP
   selector:
@@ -13,4 +16,4 @@ spec:
   ports:
     - name: tcp-term
       protocol: TCP
-      port: 8080
+      port: tcp-term
