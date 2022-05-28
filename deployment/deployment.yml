@@ -6,6 +6,9 @@ metadata:
   labels:
     name: classifier
     app: scapy
+  annotations:
+    app.kubernetes.io/name: scappy
+    app.kubernetes.io/instance: scappy
 spec:
   revisionHistoryLimit: 1
   minReadySeconds: 10
@@ -68,7 +71,7 @@ spec:
           timeoutSeconds: 3
         readinessProbe:
           tcpSocket:
-            port: 8080
+            port: tcp-term
           initialDelaySeconds: 5
           periodSeconds: 5
           failureThreshold: 2
