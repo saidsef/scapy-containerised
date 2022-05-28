@@ -16,4 +16,4 @@ spec:
   ports:
     - name: tcp-term
       protocol: TCP
-      port: tcp-term
+      port: 8080
