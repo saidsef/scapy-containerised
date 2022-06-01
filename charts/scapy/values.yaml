@@ -3,7 +3,7 @@ replicaCount: 1
 
 image:
   repository: docker.io/saidsef/scapy-containerised
-  port: 8080
+  port: &port 8080
   pullPolicy: IfNotPresent
   tag: latest
 
@@ -35,7 +35,7 @@ securityContext:
 
 service:
   type: ClusterIP
-  port: 8080
+  port: *port
 
 resources:
   requests:
