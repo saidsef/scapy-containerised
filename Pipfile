@@ -6,14 +6,14 @@ name = "pypi"
 [packages]
 cryptography = "==3.4.8"
 geoip2 = "==4.3.0"
-numpy = "==1.22.1"
+pyx = "==0.15"
+numpy = "==1.22.4"
 matplotlib = "==3.4.3"
 scapy = {version = "==2.4.5", extras = ["complete"]}
 aiohttp = ">=3.8.1"
-PyX = "==0.15"
-Pillow = ">=9.0.1"
+pillow = ">=9.0.1"
 
 [dev-packages]
 
 [requires]
-python_version = "3.10"
+python_version = "3.9"
