@@ -9,7 +9,7 @@
 			// Update 'VARIANT' to pick a Python version: 3, 3.10, 3.9, 3.8, 3.7, 3.6
 			// Append -bullseye or -buster to pin to an OS version.
 			// Use -bullseye variants on local on arm64/Apple Silicon.
-			"VARIANT": "3",
+			"VARIANT": "3.9",
 			// Options
 			"NODE_VERSION": "none"
 		}
@@ -49,7 +49,9 @@
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode",
 	"features": {
-		"kubectl-helm-minikube": "1.21",
-		"git": "latest"
+		"kubectl-helm-minikube": {
+			"version": "1.21",
+			"minikube": "none"
+		}
 	}
 }
