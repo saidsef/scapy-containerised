@@ -5,12 +5,12 @@ on:
     branches:
       - main
     paths:
-      - "charts/*"
+      - "charts/**"
   pull_request:
     branches:
       - main
     paths:
-      - "charts/*"
+      - "charts/**"
   workflow_dispatch:
 
 jobs:
