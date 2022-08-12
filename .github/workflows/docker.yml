@@ -45,7 +45,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build and push Docker image - (MAIN)
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v3
       if: success()
       env:
         DOCKER_BUILDKIT: 1
@@ -58,7 +58,7 @@ jobs:
         tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/${{ env.REPO_NAME }}:${{ env.TAG == 'main' && 'latest' || env.TAG }}
 
     - name: Build and push Docker image - (DATE)
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v3
       if: ${{ contains(github.ref, 'main') }}
       env:
         DOCKER_BUILDKIT: 1
