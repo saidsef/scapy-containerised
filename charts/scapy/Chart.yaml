@@ -3,14 +3,31 @@ apiVersion: v2
 name: scapy
 description: Scapy Helm chart for Kubernetes
 type: application
-version: 0.2.7
-appVersion: 1.21.9
-kubeVersion: ">= 1.21"
+version: 0.2.8
+appVersion: 1.22.4
+kubeVersion: ">= 1.22"
+home: https://github.com/saidsef/scapy-containerised
+icon: https://scapy.net/assets/img/logo.png
 keywords:
   - scapy
   - kubernetes
+  - packet-sniffer
+  - packet-capture
+  - network-security
+  - network-discovery
+  - security-audit
 maintainers:
   - name: Said Sef
     email: saidsef@gamil.com
     url: https://saidsef.co.uk/
-
+sources:
+  - https://github.com/saidsef/scapy-containerised.git
+annotations:
+  artifacthub.io/license: "MIT"
+  artifacthub.io/links: |
+    - name: README
+      url: https://github.com/saidsef/scapy-containerised/blob/main/README.md
+    - name: LICENSE
+      url: https://github.com/saidsef/scapy-containerised/blob/main/LICENSE.md
+    - name: CONTRIBUTING
+      url: https://github.com/saidsef/scapy-containerised/blob/main/CONTRIBUTING.md

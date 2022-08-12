@@ -1,12 +1,13 @@
 name: Charts
 
 on:
-  workflow_run:
-    workflows:
-      - Tagging
-    types:
-      - completed
-    branch:
+  push:
+    branches:
+      - main
+    paths:
+      - "charts/*"
+  pull_request:
+    branches:
       - main
     paths:
       - "charts/*"
@@ -14,6 +15,7 @@ on:
 
 jobs:
   charts:
+    if: ${{ contains(github.ref, 'main') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
@@ -28,6 +30,9 @@ jobs:
         uses: azure/setup-helm@v1
         with:
           version: v3.4.0
+      - name: Copy Readme and License
+        run: |
+          cp -v *.md charts/scapy/
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.3.0
         with:
