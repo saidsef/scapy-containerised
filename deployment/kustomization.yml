@@ -6,10 +6,6 @@ resources:
 - deployment.yml
 - service.yml
 
-commonAnnotations:
-  app.kubernetes.io/name: scappy
-  app.kubernetes.io/instance: scappy
-
 images:
 - name: scapy
   newName: docker.io/saidsef/scapy-containerised
