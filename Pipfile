@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 cryptography = "==3.4.8"
-geoip2 = "==4.3.0"
+geoip2 = "==4.6.0"
 pyx = "==0.15"
 numpy = "==1.23.3"
 matplotlib = "==3.5.3"
