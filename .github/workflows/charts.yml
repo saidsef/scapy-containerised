@@ -15,7 +15,6 @@ on:
 
 jobs:
   charts:
-    if: ${{ contains(github.ref, 'main') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
@@ -28,15 +27,46 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
       - name: Install Helm
         uses: azure/setup-helm@v3
-        with:
-          version: v3.4.0
+      - name: Setup Chart Linting
+        if: ${{ github.event_name == 'pull_request' }}
+        id: lint
+        uses: helm/chart-testing-action@v2.3.1
+      - name: Run chart-testing (list-changed)
+        if: ${{ github.event_name == 'pull_request' }}
+        id: list-changed
+        run: |
+          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
+          if [[ -n "$changed" ]]; then
+            echo "::set-output name=changed::true"
+          fi
+      - name: Run chart-testing (lint)
+        if: ${{ github.event_name == 'pull_request' }}
+        run: ct lint --target-branch ${{ github.event.repository.default_branch }} --validate-maintainers=false
       - name: Copy Readme and License
+        if: ${{ contains(github.ref, 'main') }}
         run: |
           cp -v *.md charts/scapy/
       - name: Run chart-releaser
+        if: ${{ contains(github.ref, 'main') }}
         uses: helm/chart-releaser-action@v1.4.0
         with:
           charts_dir: charts
           config: charts/cr.yml
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+  auto-approve:
+    runs-on: ubuntu-latest
+    needs: [charts]
+    if: ${{ github.event_name == 'pull_request' }}
+    steps:
+    - name: Auto Approve PR
+      uses: actions/github-script@v6
+      with:
+       script: |
+        github.rest.pulls.createReview({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          pull_number: context.issue.number,
+          event: "APPROVE"
+        })
