@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-cryptography = "==3.4.8"
+cryptography = "==38.0.1"
 geoip2 = "==4.6.0"
 pyx = "==0.15"
 numpy = "==1.23.3"
