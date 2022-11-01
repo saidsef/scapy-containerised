@@ -11,7 +11,7 @@ numpy = "==1.23.4"
 matplotlib = "==3.6.1"
 scapy = {version = "==2.4.5", extras = ["complete"]}
 aiohttp = ">=3.8.1"
-pillow = ">=9.0.1"
+pillow = ">=9.3.0"
 
 [dev-packages]
 
