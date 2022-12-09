@@ -29,7 +29,7 @@ spec:
       # hostNetwork: true
       containers:
       - name: scapy
-        image: docker.io/saidsef/scapy-containerised:latest
+        image: docker.io/saidsef/scapy-containerised:v2022.12
         imagePullPolicy: Always
         env:
           - name: "PORT"
