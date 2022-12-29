@@ -26,6 +26,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      automountServiceAccountToken: false
       {{- if .Values.serviceAccount.enabled }}
       serviceAccountName: {{ include "chart.serviceAccountName" . }}
       {{- end }}
@@ -63,6 +64,9 @@ spec:
             - name: tempfile
               mountPath: /var/tmp
               subPath: vartemp
+            - name: tempfile
+              mountPath: /root/.scapy_history
+              subPath: scapyhistory
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -79,4 +83,5 @@ spec:
       {{- end }}
       volumes:
         - name: tempfile
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 2Gi

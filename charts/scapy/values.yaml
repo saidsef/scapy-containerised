@@ -31,7 +31,6 @@ securityContext:
       - ALL
     add:
       - NET_ADMIN
-      - SYS_TIME
 
 service:
   type: ClusterIP

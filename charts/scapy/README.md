@@ -1,6 +1,6 @@
 # scapy
 
-![Version: 0.2.11](https://img.shields.io/badge/Version-0.2.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.22.4](https://img.shields.io/badge/AppVersion-1.22.4-informational?style=flat-square)
+![Version: 0.2.12](https://img.shields.io/badge/Version-0.2.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.22.4](https://img.shields.io/badge/AppVersion-1.22.4-informational?style=flat-square)
 
 Scapy Helm chart for Kubernetes
 
@@ -46,7 +46,6 @@ Kubernetes: `>= 1.22`
 | resources.requests.memory | string | `"1Gi"` |  |
 | securityContext.allowPrivilegeEscalation | bool | `true` |  |
 | securityContext.capabilities.add[0] | string | `"NET_ADMIN"` |  |
-| securityContext.capabilities.add[1] | string | `"SYS_TIME"` |  |
 | securityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | securityContext.privileged | bool | `true` |  |
 | securityContext.readOnlyRootFilesystem | bool | `true` |  |
