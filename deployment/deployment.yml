@@ -27,6 +27,7 @@ spec:
         app: scapy
     spec:
       # hostNetwork: true
+      automountServiceAccountToken: false
       containers:
       - name: scapy
         image: docker.io/saidsef/scapy-containerised:v2022.12
@@ -43,7 +44,6 @@ spec:
               - ALL
             add:
               - NET_ADMIN
-              - SYS_TIME
         ports:
         - containerPort: 8080
           protocol: TCP
@@ -52,6 +52,11 @@ spec:
           - name: tempfile
             mountPath: /var/tmp
             subPath: vartemp
+            readOnly: false
+          - name: tempfile
+            mountPath: /root/.scapy_history
+            subPath: scapyhistory
+            readOnly: false
         resources:
           requests:
            memory: "1Gi"
@@ -79,4 +84,5 @@ spec:
           timeoutSeconds: 3
       volumes:
         - name: tempfile
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 1Gi
