@@ -2,7 +2,7 @@
 cryptography==38.0.4
 geoip2==4.6.0
 pyx==0.16
-numpy==1.24.0
+numpy==1.24.1
 matplotlib==3.6.2
 scapy[complete]==2.5.0
 aiohttp>=3.8.1
