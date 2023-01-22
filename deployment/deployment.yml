@@ -49,7 +49,7 @@ spec:
           name: tcp-term
         volumeMounts:
           - name: tempfile
-            mountPath: /tmp
+            mountPath: /app
             subPath: app
           - name: tempfile
             mountPath: /tmp
