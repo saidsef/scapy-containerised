@@ -29,6 +29,10 @@ Kubernetes: `>= 1.22`
 | autoscaling.maxReplicas | int | `10` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `90` |  |
+| env[0].name | string | `"SCAPY_HISTFILE"` |  |
+| env[0].value | string | `"/app/.scapy_history"` |  |
+| env[1].name | string | `"SCAPY_USE_LIBPCAP"` |  |
+| env[1].value | string | `"yes"` |  |
 | fullnameOverride | string | `""` |  |
 | image.port | int | `8080` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
