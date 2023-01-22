@@ -4,15 +4,15 @@ kind: Service
 metadata:
   name: scapy
   labels:
-    name: scapy
-    app: scapy
+    app.kubernetes.io/name: scappy
   annotations:
     app.kubernetes.io/name: scappy
     app.kubernetes.io/instance: scappy
 spec:
   type: ClusterIP
+  clusterIP: None
   selector:
-    app: scapy
+    app.kubernetes.io/name: scappy
   ports:
     - name: tcp-term
       protocol: TCP

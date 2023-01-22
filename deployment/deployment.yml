@@ -4,8 +4,7 @@ kind: Deployment
 metadata:
   name: scapy
   labels:
-    name: classifier
-    app: scapy
+    app.kubernetes.io/name: scappy
   annotations:
     app.kubernetes.io/name: scappy
     app.kubernetes.io/instance: scappy
@@ -20,11 +19,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: scapy
+      app.kubernetes.io/name: scappy
   template:
     metadata:
       labels:
-        app: scapy
+        app.kubernetes.io/name: scappy
     spec:
       # hostNetwork: true
       automountServiceAccountToken: false
@@ -55,7 +54,7 @@ spec:
             readOnly: false
           - name: tempfile
             mountPath: /root/.scapy_history
-            subPath: scapyhistory
+            subPath: ".scapyhistory"
             readOnly: false
         resources:
           requests:
