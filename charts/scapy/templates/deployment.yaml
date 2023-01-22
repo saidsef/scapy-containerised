@@ -62,11 +62,17 @@ spec:
             timeoutSeconds: 3
           volumeMounts:
             - name: tempfile
+              mountPath: /app
+              subPath: app
+            - name: tempfile
+              mountPath: /tmp
+              subPath: tmp
+            - name: tempfile
               mountPath: /var/tmp
               subPath: vartemp
             - name: tempfile
-              mountPath: /root/.scapy_history
-              subPath: scapyhistory
+              mountPath: /root
+              subPath: root
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

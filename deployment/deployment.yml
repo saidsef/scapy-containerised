@@ -49,12 +49,19 @@ spec:
           name: tcp-term
         volumeMounts:
           - name: tempfile
-            mountPath: /var/tmp
-            subPath: vartemp
+            mountPath: /tmp
+            subPath: app
+          - name: tempfile
+            mountPath: /tmp
+            subPath: tmp
             readOnly: false
           - name: tempfile
-            mountPath: /root/.scapy_history
-            subPath: ".scapyhistory"
+            mountPath: /var/tmp
+            subPath: vartmp
+            readOnly: false
+          - name: tempfile
+            mountPath: /root
+            subPath: root
             readOnly: false
         resources:
           requests:
@@ -84,4 +91,4 @@ spec:
       volumes:
         - name: tempfile
           emptyDir:
-            sizeLimit: 1Gi
+            sizeLimit: 2Gi

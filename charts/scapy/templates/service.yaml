@@ -12,5 +12,9 @@ spec:
       targetPort: tcp
       protocol: TCP
       name: tcp
+    - port: 8090
+      targetPort: 8090
+      protocol: TCP
+      name: http
   selector:
     {{- include "chart.selectorLabels" . | nindent 4 }}
