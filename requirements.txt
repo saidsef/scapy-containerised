@@ -8,4 +8,3 @@ numpy==1.24.1
 pillow>=9.3.0
 pyx==0.16
 scapy[complete]==2.5.0
-vpython==7.6.4

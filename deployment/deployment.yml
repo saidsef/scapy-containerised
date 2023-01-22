@@ -59,10 +59,6 @@ spec:
             mountPath: /var/tmp
             subPath: vartmp
             readOnly: false
-          - name: tempfile
-            mountPath: /root
-            subPath: root
-            readOnly: false
         resources:
           requests:
            memory: "1Gi"

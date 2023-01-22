@@ -70,9 +70,6 @@ spec:
             - name: tempfile
               mountPath: /var/tmp
               subPath: vartemp
-            - name: tempfile
-              mountPath: /root
-              subPath: root
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
