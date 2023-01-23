@@ -1,6 +1,6 @@
 # scapy
 
-![Version: 0.2.12](https://img.shields.io/badge/Version-0.2.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.22.4](https://img.shields.io/badge/AppVersion-1.22.4-informational?style=flat-square)
+![Version: 0.2.13](https://img.shields.io/badge/Version-0.2.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.22.4](https://img.shields.io/badge/AppVersion-1.22.4-informational?style=flat-square)
 
 Scapy Helm chart for Kubernetes
 
@@ -29,6 +29,10 @@ Kubernetes: `>= 1.22`
 | autoscaling.maxReplicas | int | `10` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `90` |  |
+| env[0].name | string | `"SCAPY_HISTFILE"` |  |
+| env[0].value | string | `"/app/.scapy_history"` |  |
+| env[1].name | string | `"SCAPY_USE_LIBPCAP"` |  |
+| env[1].value | string | `"yes"` |  |
 | fullnameOverride | string | `""` |  |
 | image.port | int | `8080` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |

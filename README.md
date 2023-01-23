@@ -28,6 +28,8 @@ docker build -t saidsef/scapy-containerised:latest .
 docker run -d --net=host --privileged -v /path/to/geoip2:/data saidsef/scapy-containerised:latest
 ```
 
+> GeoIP data sets can be download from [P3TERX](https://github.com/P3TERX/GeoLite.mmdb) 
+
 Than visit:
 
 ```shell

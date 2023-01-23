@@ -34,6 +34,10 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
+          {{- with .Values.env }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -62,11 +66,14 @@ spec:
             timeoutSeconds: 3
           volumeMounts:
             - name: tempfile
+              mountPath: /app
+              subPath: app
+            - name: tempfile
+              mountPath: /tmp
+              subPath: tmp
+            - name: tempfile
               mountPath: /var/tmp
               subPath: vartemp
-            - name: tempfile
-              mountPath: /root/.scapy_history
-              subPath: scapyhistory
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
