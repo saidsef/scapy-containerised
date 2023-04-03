@@ -30,7 +30,7 @@ jobs:
       - name: Setup Chart Linting
         if: ${{ github.event_name == 'pull_request' }}
         id: lint
-        uses: helm/chart-testing-action@v2.3.1
+        uses: helm/chart-testing-action@v2.4.0
       - name: Run chart-testing (list-changed)
         if: ${{ github.event_name == 'pull_request' }}
         id: list-changed
