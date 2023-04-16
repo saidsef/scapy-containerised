@@ -12,6 +12,42 @@ entries:
           url: https://github.com/saidsef/scapy-containerised/blob/main/CONTRIBUTING.md
     apiVersion: v2
     appVersion: 1.22.4
+    created: "2023-04-16T09:36:24.739827969Z"
+    description: Scapy Helm chart for Kubernetes
+    digest: 622251a49964f351fc76102f4a94e603df6ef4de46ce36888f483b475b77ff9a
+    home: https://github.com/saidsef/scapy-containerised
+    icon: https://scapy.net/assets/img/logo.png
+    keywords:
+    - scapy
+    - kubernetes
+    - packet-sniffer
+    - packet-capture
+    - network-security
+    - network-discovery
+    - security-audit
+    kubeVersion: '>= 1.22'
+    maintainers:
+    - email: saidsef@gamil.com
+      name: Said Sef
+      url: https://saidsef.co.uk/
+    name: scapy
+    sources:
+    - https://github.com/saidsef/scapy-containerised.git
+    type: application
+    urls:
+    - https://github.com/saidsef/scapy-containerised/releases/download/scapy-0.2.14/scapy-0.2.14.tgz
+    version: 0.2.14
+  - annotations:
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: README
+          url: https://github.com/saidsef/scapy-containerised/blob/main/README.md
+        - name: LICENSE
+          url: https://github.com/saidsef/scapy-containerised/blob/main/LICENSE.md
+        - name: CONTRIBUTING
+          url: https://github.com/saidsef/scapy-containerised/blob/main/CONTRIBUTING.md
+    apiVersion: v2
+    appVersion: 1.22.4
     created: "2023-01-23T00:07:46.773371421Z"
     description: Scapy Helm chart for Kubernetes
     digest: f760357d6f685f93fb0abfe20b56b23759608776a95db60bf498e3e3692516ee
@@ -361,4 +397,4 @@ entries:
     urls:
     - https://github.com/saidsef/scapy-containerised/releases/download/scapy-0.1.0/scapy-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-23T00:07:46.773640422Z"
+generated: "2023-04-16T09:36:24.739909671Z"
