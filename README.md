@@ -12,7 +12,7 @@ Scapy is usable either as a shell or as a library. For further details, please h
 
 - Container runtime (needs to run privileged mode)
 - Some Python Knowledge
-- Have a read [Scapy docs](https://scapy.readthedocs.io/en/latest/introduction.html)
+- Have read [Scapy docs](https://scapy.readthedocs.io/en/latest/introduction.html)
 
 ## Installation
 
