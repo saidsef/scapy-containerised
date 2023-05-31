@@ -1,5 +1,7 @@
 # Scapy Containerised
 
+This gives you a shell inside container/namespace via TTYD, and you can use Scapy to analyse network traffic. 
+
 Scapy is a powerful Python-based interactive packet manipulation program and library.
 
 Scapy enables the user to send, sniff and dissect and forge network packets. This capability allows construction of tools that can probe, scan or attack networks.
