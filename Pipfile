@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 aiohttp = ">=3.8.4"
-cryptography = "==40.0.2"
+cryptography = "==41.0.0"
 geoip2 = "==4.7.0"
 libpcap = "==1.11.0b7"
 matplotlib = "==3.7.1"
