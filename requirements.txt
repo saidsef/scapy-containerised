@@ -4,7 +4,7 @@ cryptography==41.0.1
 geoip2==4.7.0
 libpcap==1.11.0b7
 matplotlib==3.7.1
-numpy==1.24.3
+numpy==1.25.0
 pillow>=9.3.0
 pyx==0.16
 scapy[complete]==2.5.0
