@@ -25,5 +25,5 @@ VOLUME ["/data"]
 
 EXPOSE $PORT
 
-ENTRYPOINT ttyd -p $PORT sh
+ENTRYPOINT ttyd -W -6 -p $PORT sh
 CMD ./scapy-${VERSION}/run_scapy
