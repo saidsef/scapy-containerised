@@ -5,7 +5,7 @@ LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
 ENV PORT ${PORT:-8080}
 ENV SCAPY_HISTFILE "/app/.scapy_history"
 ENV SCAPY_USE_LIBPCAP "yes"
-ENV VERSION 1.7.3
+ENV VERSION 1.7.4
 
 COPY requirements.txt .
 
@@ -25,5 +25,5 @@ VOLUME ["/data"]
 
 EXPOSE $PORT
 
-ENTRYPOINT ttyd -p $PORT sh
+ENTRYPOINT ttyd -W -6 -p $PORT sh
 CMD ./scapy-${VERSION}/run_scapy
