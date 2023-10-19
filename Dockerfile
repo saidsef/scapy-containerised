@@ -13,7 +13,7 @@ RUN apk add -U --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge
         build-base gcc musl-dev python3-dev libstdc++ openblas-dev jpeg-dev zlib-dev \
         libpng libpng-dev freetype freetype-dev libffi libffi-dev openssl openssl-dev \
         tcpdump imagemagick graphviz curl texlive libressl libpcap libpcap-dev libjpeg xdg-utils && \
-    pip3 install --no-cache -r requirements.txt && \
+    pip3 install --no-cache -r requirements.txt -Csetup-args=-Dblas=blas -Csetup-args=-Dlapack=lapack && \
     curl https://github.com/tsl0922/ttyd/releases/download/${VERSION}/ttyd.x86_64 -L -o /usr/local/bin/ttyd && \
     chmod +x /usr/local/bin/ttyd && \
     rm -rfv /var/cache/apk/*
