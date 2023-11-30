@@ -1,5 +1,5 @@
 -i https://pypi.org/simple
-aiohttp>=3.8.4
+aiohttp>=3.9.0
 cryptography>=41.0.4
 geoip2>=4.7.0
 libpcap>=1.11.0b7
