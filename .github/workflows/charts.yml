@@ -30,7 +30,7 @@ jobs:
       - name: Setup Chart Linting
         if: ${{ github.event_name == 'pull_request' }}
         id: lint
-        uses: helm/chart-testing-action@v2.4.0
+        uses: helm/chart-testing-action@v2.6.1
       - name: Run chart-testing (list-changed)
         if: ${{ github.event_name == 'pull_request' }}
         id: list-changed
@@ -48,7 +48,7 @@ jobs:
           cp -v *.md charts/scapy/
       - name: Run chart-releaser
         if: ${{ contains(github.ref, 'main') }}
-        uses: helm/chart-releaser-action@v1.5.0
+        uses: helm/chart-releaser-action@v1.6.0
         with:
           charts_dir: charts
           config: charts/cr.yml
@@ -61,7 +61,7 @@ jobs:
     if: ${{ github.event_name == 'pull_request' }}
     steps:
     - name: Auto Approve PR
-      uses: actions/github-script@v6
+      uses: actions/github-script@v7
       with:
        script: |
         github.rest.pulls.createReview({
