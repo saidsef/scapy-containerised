@@ -5,7 +5,7 @@ geoip2>=4.7.0
 libpcap>=1.11.0b7
 matplotlib>=3.8.2
 numpy>=1.26.1
-pillow>=10.0.1
+pillow>=10.2.0
 pyx>=0.16
 scapy[complete]==2.5.0
 fonttools>=4.43.0 # not directly required, pinned by Snyk to avoid a vulnerability
