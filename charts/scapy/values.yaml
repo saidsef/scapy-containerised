@@ -5,7 +5,7 @@ image:
   repository: docker.io/saidsef/scapy-containerised
   port: &port 8080
   pullPolicy: IfNotPresent
-  tag: v2022.12
+  tag: v2024.02
 
 env:
 - name: SCAPY_HISTFILE
