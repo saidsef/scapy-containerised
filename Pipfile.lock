@@ -670,11 +670,12 @@
         },
         "libpcap": {
             "hashes": [
-                "sha256:804585aa678e2535477637123b17d52d9b6b3523b70936352f655c5cebbbabb9",
-                "sha256:ec5093a63ec9f12eeadf512c65c56ac28d813a18919472ae0fe651a4703d7708"
+                "sha256:05a911c4d6a972b35a89d6372f518826662b75999c29a751bccc460bf7376a12",
+                "sha256:e9784454e3b6676ac5662333e1ddf6b5347ec54bb529d31d0e30a19addb0b10a"
             ],
             "index": "pypi",
-            "version": "==1.11.0b7"
+            "markers": "python_full_version >= '3.8.1' and python_full_version < '4.0.0'",
+            "version": "==1.11.0b8"
         },
         "matplotlib": {
             "hashes": [
