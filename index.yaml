@@ -2,6 +2,46 @@ apiVersion: v1
 entries:
   scapy:
   - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: Updated image tag to v2023.02
+        - kind: changed
+          description: Updated minimum Kubernetes version to 1.25+
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: README
+          url: https://github.com/saidsef/scapy-containerised/blob/main/README.md
+        - name: LICENSE
+          url: https://github.com/saidsef/scapy-containerised/blob/main/LICENSE.md
+        - name: CONTRIBUTING
+          url: https://github.com/saidsef/scapy-containerised/blob/main/CONTRIBUTING.md
+    apiVersion: v2
+    appVersion: 0.2.15
+    created: "2024-02-05T10:03:12.992247106Z"
+    description: Scapy Helm chart for Kubernetes
+    digest: 119024667303c68a09969fd741e4181255dcfee17eac693b30f136fd765fe2d0
+    home: https://github.com/saidsef/scapy-containerised
+    icon: https://scapy.net/assets/img/logo.png
+    keywords:
+    - scapy
+    - kubernetes
+    - packet-sniffer
+    - packet-capture
+    - network-security
+    - network-discovery
+    - security-audit
+    kubeVersion: '>= 1.25'
+    maintainers:
+    - name: saidsef
+      url: https://saidsef.github.io/argocd-applicationsets-services
+    name: scapy
+    sources:
+    - https://github.com/saidsef/scapy-containerised.git
+    type: application
+    urls:
+    - https://github.com/saidsef/scapy-containerised/releases/download/scapy-0.2.15/scapy-0.2.15.tgz
+    version: 0.2.15
+  - annotations:
       artifacthub.io/license: MIT
       artifacthub.io/links: |
         - name: README
@@ -397,4 +437,4 @@ entries:
     urls:
     - https://github.com/saidsef/scapy-containerised/releases/download/scapy-0.1.0/scapy-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-16T09:36:24.739909671Z"
+generated: "2024-02-05T10:03:12.992364113Z"
