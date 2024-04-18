@@ -6,14 +6,15 @@ name = "pypi"
 [packages]
 aiohttp = ">=3.9.3"
 cryptography = ">=42.0.4"
+fonttools = ">=4.43.0"
 geoip2 = ">=4.7.0"
 libpcap = ">=1.11.0b7"
 matplotlib = ">=3.8.2"
 numpy = ">=1.26.1"
 pillow = ">=10.3.0"
+pyopenssl = "==24.1.0"
 pyx = ">=0.16"
 scapy = {version = "==2.5.0", extras = ["complete"]}
-fonttools = ">=4.43.0"
 
 [dev-packages]
 
