@@ -80,12 +80,24 @@ http://localhost:8080
 
 ## Sniff Packets
 
-> Select an interface `iface` name from `get_if_list()` result
+To list available layers:
+
+```python
+help(scapy.layers)
+```
 
 ```shell
-# load_layer("tls")
+# load_layer("http")
 # get_if_list()
-# sniff(iface="ens3", prn=lambda x: x.show(), lfilter=lambda x: TLS in x, count=100)
+# sniff(iface="eth0", prn=lambda x: x.show(), lfilter=lambda x: HTTP in x, count=100)
+```
+> https://scapy.readthedocs.io/en/latest/api/scapy.layers.html
+> To load layers `tls` you might need to downgrade `cryptography` <= v38
+
+The routes are stores in `conf.route`. You can use it to display the routes, or get specific routing:
+
+```shell
+conf.route
 ```
 
 ## Source
