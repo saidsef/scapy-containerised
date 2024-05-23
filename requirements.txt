@@ -11,3 +11,4 @@ pyopenssl==24.1.0
 pyshark==0.6
 pyx>=0.16
 scapy[complete]==2.5.0
+requests>=2.32.0 # not directly required, pinned by Snyk to avoid a vulnerability
