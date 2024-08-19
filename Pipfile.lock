@@ -681,11 +681,12 @@
         },
         "libpcap": {
             "hashes": [
-                "sha256:05a911c4d6a972b35a89d6372f518826662b75999c29a751bccc460bf7376a12",
-                "sha256:e9784454e3b6676ac5662333e1ddf6b5347ec54bb529d31d0e30a19addb0b10a"
+                "sha256:a8b76915d08245d09ff26aba3f7e93175643fef0a1cd6cb2e479e534c7734472",
+                "sha256:ad109949cc8a90f60637d8756a0f84573af59b9808ad2bc54d314563f9082567"
             ],
             "index": "pypi",
-            "version": "==1.11.0b8"
+            "markers": "python_full_version >= '3.8.10' and python_full_version < '4.0.0'",
+            "version": "==1.11.0b10"
         },
         "lxml": {
             "hashes": [
@@ -1215,11 +1216,11 @@
         },
         "pkg-about": {
             "hashes": [
-                "sha256:647b1b9f3ef836e9899b2a6bff2b1f3e4a96beed7f4ec2e05f81c1fcf0a91642",
-                "sha256:814da12eb887a9d234bf663f72abe56e4baf5af6ac1a020fe00a1807fa0e6572"
+                "sha256:195577974ad4f2093179d3a2315540b746c4a82b723bed4b487c482a30656cf9",
+                "sha256:8c43b301025abc9f1726b0170bb9422d27eb5e5b1c33100d50807a3ecd278f5d"
             ],
             "markers": "python_full_version >= '3.8.10' and python_full_version < '4.0.0'",
-            "version": "==1.1.7"
+            "version": "==1.1.8"
         },
         "prompt-toolkit": {
             "hashes": [
@@ -1318,11 +1319,11 @@
         },
         "setuptools": {
             "hashes": [
-                "sha256:032d42ee9fb536e33087fb66cac5f840eb9391ed05637b3f2a76a7c8fb477936",
-                "sha256:33874fdc59b3188304b2e7c80d9029097ea31627180896fb549c578ceb8a0855"
+                "sha256:80aacbf633704e9c8bfa1d99fa5dd4dc59573efcf9e4042c13d3bcef91ac2ef9",
+                "sha256:f11dd94b7bae3a156a95ec151f24e4637fb4fa19c878e4d191bfb8b2d82728c4"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==71.1.0"
+            "version": "==72.2.0"
         },
         "six": {
             "hashes": [
