@@ -18,6 +18,9 @@ RUN apk add -U --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge
     chmod +x /usr/local/bin/ttyd && \
     rm -rfv /var/cache/apk/*
 
+# Copy the scripts folder while ignoring the charts folder
+COPY scripts /app/scripts
+
 WORKDIR /app
 
 # GeoIP2 data directory
