@@ -15,7 +15,7 @@ pillow = ">=10.3.0"
 pyopenssl = "==24.2.1"
 pyshark = "==0.6"
 pyx = ">=0.16"
-scapy = {version = "==2.5.0", extras = ["complete"]}
+scapy = {version = "==2.6.0", extras = ["complete"]}
 requests = ">=2.32.0"
 zipp = ">=3.19.1"
 
