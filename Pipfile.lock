@@ -734,12 +734,12 @@
         },
         "libpcap": {
             "hashes": [
-                "sha256:bdff44f67b62615c0b23047fc4c82d53e6bcefbe3602e25340c9e190e7968392",
-                "sha256:cc76624eae6032e0a6bd3eeade36936f2a22f90792d2ffd60e6c009af5378445"
+                "sha256:371879b5b81fbc8b3ba25d35edf6bf612eec07b6cc87ad31041f9cb2da15e314",
+                "sha256:e1728dfce20b0e2768d319fa5a710ca005fd024e9467f087f6c8d2c6a961c9a6"
             ],
             "index": "pypi",
             "markers": "python_full_version >= '3.9.0' and python_full_version < '4.0.0'",
-            "version": "==1.11.0b11"
+            "version": "==1.11.0b14"
         },
         "lxml": {
             "hashes": [
@@ -1285,11 +1285,11 @@
         },
         "pkg-about": {
             "hashes": [
-                "sha256:08aabc3bc334b0482f4ad75a55cae7f3b0db6443b4271c434c8a019c46241c20",
-                "sha256:d62c42f18000f7f3becc5a5bc9f40af9d5191f108574d3cae7934324616ef5f6"
+                "sha256:b0fe21b281f0f444c39ed9c4db392d920f6efc18e86f143d722ee484cffbde5d",
+                "sha256:c54bd0116cd1a1e1ffaf62d1669a8b0962e7666bcbb0becb16294b75d2176bc5"
             ],
             "markers": "python_full_version >= '3.9.0' and python_full_version < '4.0.0'",
-            "version": "==1.2.0"
+            "version": "==1.2.1"
         },
         "prompt-toolkit": {
             "hashes": [
@@ -1494,11 +1494,11 @@
         },
         "setuptools": {
             "hashes": [
-                "sha256:35ab7fd3bcd95e6b7fd704e4a1539513edad446c097797f2985e0e4b960772f2",
-                "sha256:d59a21b17a275fb872a9c3dae73963160ae079f1049ed956880cd7c09b120538"
+                "sha256:753bb6ebf1f465a1912e19ed1d41f403a79173a9acf66a42e7e6aec45c3c16ec",
+                "sha256:a7fcb66f68b4d9e8e66b42f9876150a3371558f98fa32222ffaa5bced76406f8"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==75.1.0"
+            "version": "==75.2.0"
         },
         "six": {
             "hashes": [
