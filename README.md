@@ -50,7 +50,7 @@ To start Scapy in interactive mode.
 
 > To expose host interface to container enable `hostNetwork: true` in `deployment.yml` file.  [Consider security implications](https://kubernetes.io/docs/concepts/configuration/overview/)
 
-> Make sure the `PORT` isn't already bound to another service - if you choose to run the service on a different PORT make sure you update the relevant fields.
+> Make certain the `PORT` isn't already bound to another service - if you choose to run the service on a different PORT make sure you update the relevant fields.
 
 ### HELM
 
