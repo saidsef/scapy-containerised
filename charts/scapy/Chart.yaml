@@ -3,7 +3,7 @@ apiVersion: v2
 name: scapy
 description: Scapy Helm chart for Kubernetes
 type: application
-version: &version 0.2.15
+version: &version 0.3.0
 appVersion: *version
 kubeVersion: ">= 1.25"
 home: https://github.com/saidsef/scapy-containerised
@@ -24,10 +24,12 @@ sources:
 annotations:
   artifacthub.io/license: "MIT"
   artifacthub.io/changes: |
+    - kind: added
+      description: Added init container to install scapy dependencies
     - kind: changed
-      description: Updated image tag to v2023.02
+      description: Updated ttyd to v1.7.7
     - kind: changed
-      description: Updated minimum Kubernetes version to 1.25+
+      description: Set default container tag to v2024.12
   artifacthub.io/links: |
     - name: README
       url: https://github.com/saidsef/scapy-containerised/blob/main/README.md

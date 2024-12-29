@@ -27,10 +27,18 @@ docker build -t saidsef/scapy-containerised:latest .
 ```
 
 ```shell
-docker run -d --net=host --privileged -v /path/to/geoip2:/data saidsef/scapy-containerised:latest
+docker run -d --net=host --privileged -v /path/to/geoip2:/data docker.io/saidsef/scapy-containerised:latest
 ```
 
 > GeoIP data sets can be download from [P3TERX](https://github.com/P3TERX/GeoLite.mmdb) 
+
+```python
+conf.geoip_city = "/data/GeoLite.mmdb"
+conf.temp_files = "/tmp"
+
+trace = traceroute_map(["saidsef.co.uk"], verbose=0)
+trace.world_trace()
+```
 
 Than visit:
 
@@ -85,11 +93,16 @@ To list available layers:
 ```python
 help(scapy.layers)
 ```
+Sniff function specification documentation
 
-```shell
-# load_layer("http")
-# get_if_list()
-# sniff(iface="eth0", prn=lambda x: x.show(), lfilter=lambda x: HTTP in x, count=100)
+```python
+print sniff.__doc__
+```
+
+```python
+load_layer("http")
+get_if_list()
+sniff(iface="eth0", prn=lambda x: x.show(), lfilter=lambda x: HTTP in x, count=100)
 ```
 > https://scapy.readthedocs.io/en/latest/api/scapy.layers.html
 > To load layers `tls` you might need to downgrade `cryptography` <= v38
@@ -98,6 +111,23 @@ The routes are stores in `conf.route`. You can use it to display the routes, or 
 
 ```shell
 conf.route
+```
+
+## Plot unsing Matplotlib
+
+For some special features, Scapy will need some dependencies to be installed.
+
+```python
+p=sniff(iface="any", count=50)
+p.plot(lambda x:len(x))
+```
+> <https://scapy.readthedocs.io/en/latest/installation.html#optional-dependencies>
+
+## PDF Dump using `pxy`
+
+```python
+p=IP()/ICMP()
+p.pdfdump("test.pdf", target="> /tmp")
 ```
 
 ## Source
