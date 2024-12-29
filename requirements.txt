@@ -1,5 +1,6 @@
 -i https://pypi.org/simple
 aiohttp>=3.10.11
+cartopy>=0.24.1
 cryptography>=42.0.4
 fonttools>=4.43.0 # not directly required, pinned by Snyk to avoid a vulnerability
 geoip2>=4.7.0
