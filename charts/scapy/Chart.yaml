@@ -28,6 +28,8 @@ annotations:
       description: Added init container to install scapy dependencies
     - kind: changed
       description: Updated ttyd to v1.7.7
+    - kind: changed
+      description: Set default container tag to v2024.12
   artifacthub.io/links: |
     - name: README
       url: https://github.com/saidsef/scapy-containerised/blob/main/README.md

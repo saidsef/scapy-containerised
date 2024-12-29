@@ -34,20 +34,19 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
         - name: init
-          image: docker.io/busybox:1.33.1
+          image: docker.io/library/alpine:3.20
           imagePullPolicy: IfNotPresent
           command:
            - /bin/sh
           args:
            - -c
            - |
-              wget https://github.com/P3TERX/GeoLite.mmdb
+              apk add -U --no-cache wget
+              wget -O /data/GeoLite.mmdb https://github.com/P3TERX/GeoLite.mmdb
           volumeMounts:
             - name: tempfile
               mountPath: /data
               subPath: data
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.env }}

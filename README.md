@@ -113,7 +113,7 @@ For some special features, Scapy will need some dependencies to be installed.
 p=sniff(iface="any", count=50)
 p.plot(lambda x:len(x))
 ```
-> https://scapy.readthedocs.io/en/latest/installation.html#optional-dependencies
+> <https://scapy.readthedocs.io/en/latest/installation.html#optional-dependencies>
 
 ## PDF Dump using `pxy`
 
