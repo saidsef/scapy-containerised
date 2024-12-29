@@ -1,11 +1,11 @@
-FROM docker.io/python:3.12-alpine3.18
+FROM docker.io/python:3.12-alpine3.20
 
 LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
 
 ENV PORT ${PORT:-8080}
 ENV SCAPY_HISTFILE "/app/.scapy_history"
 ENV SCAPY_USE_LIBPCAP "yes"
-ENV VERSION 1.7.4
+ENV VERSION 1.7.7
 
 COPY requirements.txt .
 
