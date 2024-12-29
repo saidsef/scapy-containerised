@@ -32,6 +32,14 @@ docker run -d --net=host --privileged -v /path/to/geoip2:/data docker.io/saidsef
 
 > GeoIP data sets can be download from [P3TERX](https://github.com/P3TERX/GeoLite.mmdb) 
 
+```python
+conf.geoip_city = "/data/GeoLite.mmdb"
+conf.temp_files = "/tmp"
+
+trace = traceroute_map(["saidsef.co.uk"], verbose=0)
+trace.world_trace()
+```
+
 Than visit:
 
 ```shell
