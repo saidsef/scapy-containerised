@@ -32,6 +32,22 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: init
+          image: docker.io/busybox:1.33.1
+          imagePullPolicy: IfNotPresent
+          command:
+           - /bin/sh
+          args:
+           - -c
+           - |
+              wget https://github.com/P3TERX/GeoLite.mmdb
+          volumeMounts:
+            - name: tempfile
+              mountPath: /data
+              subPath: data
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.env }}
@@ -65,6 +81,9 @@ spec:
             successThreshold: 1
             timeoutSeconds: 3
           volumeMounts:
+            - name: tempfile
+              mountPath: /data
+              subPath: data
             - name: tempfile
               mountPath: /app
               subPath: app
