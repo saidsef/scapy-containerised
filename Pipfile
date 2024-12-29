@@ -4,13 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-aiohttp = ">=3.9.4"
+aiohttp = ">=3.10.11"
 cryptography = ">=42.0.4"
 fonttools = ">=4.43.0"
 geoip2 = ">=4.7.0"
 libpcap = ">=1.11.0b7"
 matplotlib = ">=3.8.2"
-numpy = ">=1.26.1"
+numpy = ">=2.2.1"
 pillow = ">=10.3.0"
 pyopenssl = "==24.3.0"
 pyshark = "==0.6"
