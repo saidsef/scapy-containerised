@@ -27,6 +27,29 @@ spec:
     spec:
       # hostNetwork: true
       automountServiceAccountToken: false
+      initContainers:
+        - name: init
+          image: docker.io/busybox:latest
+          imagePullPolicy: IfNotPresent
+          workingDir: /data
+          command:
+           - /bin/sh
+          args:
+           - -c
+           - |
+             wget https://github.com/P3TERX/GeoLite.mmdb
+          volumeMounts:
+            - name: tempfile
+              mountPath: /data
+              subPath: data
+              readOnly: false
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop:
+                - ALL
       containers:
       - name: scapy
         image: docker.io/saidsef/scapy-containerised:v2023.04
@@ -52,6 +75,10 @@ spec:
           protocol: TCP
           name: tcp-term
         volumeMounts:
+          - name: tempfile
+            mountPath: /data
+            subPath: data
+            readOnly: false
           - name: tempfile
             mountPath: /app
             subPath: app
