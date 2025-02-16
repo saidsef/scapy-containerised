@@ -5,13 +5,15 @@ image:
   repository: docker.io/saidsef/scapy-containerised
   port: &port 8080
   pullPolicy: IfNotPresent
-  tag: v2024.12
+  tag: v2025.02
 
 env:
 - name: SCAPY_HISTFILE
-  value: "/app/.scapy_history"
+  value: "/tmp/.scapy_history"
 - name: SCAPY_USE_LIBPCAP
   value: "yes"
+- name: MPLCONFIGDIR
+  value: "/tmp/matplotlib"
 
 imagePullSecrets: []
 nameOverride: ""

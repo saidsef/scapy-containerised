@@ -8,4 +8,4 @@ resources:
 images:
 - name: scapy
   newName: docker.io/saidsef/scapy-containerised
-  newTag: v2024.12
+  newTag: v2025.02
