@@ -18,6 +18,48 @@ entries:
         - name: CONTRIBUTING
           url: https://github.com/saidsef/scapy-containerised/blob/main/CONTRIBUTING.md
     apiVersion: v2
+    appVersion: 0.3.1
+    created: "2025-02-16T16:46:38.151059668Z"
+    description: Scapy Helm chart for Kubernetes
+    digest: da38a991f7f719bc8d025dd9407929ded980e13506776f79d741429be70cce89
+    home: https://github.com/saidsef/scapy-containerised
+    icon: https://scapy.net/assets/img/logo.png
+    keywords:
+    - scapy
+    - kubernetes
+    - packet-sniffer
+    - packet-capture
+    - network-security
+    - network-discovery
+    - security-audit
+    kubeVersion: '>= 1.25'
+    maintainers:
+    - name: saidsef
+      url: https://saidsef.github.io/argocd-applicationsets-services
+    name: scapy
+    sources:
+    - https://github.com/saidsef/scapy-containerised.git
+    type: application
+    urls:
+    - https://github.com/saidsef/scapy-containerised/releases/download/scapy-0.3.1/scapy-0.3.1.tgz
+    version: 0.3.1
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Added init container to install scapy dependencies
+        - kind: changed
+          description: Updated ttyd to v1.7.7
+        - kind: changed
+          description: Set default container tag to v2024.12
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: README
+          url: https://github.com/saidsef/scapy-containerised/blob/main/README.md
+        - name: LICENSE
+          url: https://github.com/saidsef/scapy-containerised/blob/main/LICENSE.md
+        - name: CONTRIBUTING
+          url: https://github.com/saidsef/scapy-containerised/blob/main/CONTRIBUTING.md
+    apiVersion: v2
     appVersion: 0.3.0
     created: "2024-12-29T18:58:17.841970392Z"
     description: Scapy Helm chart for Kubernetes
@@ -479,4 +521,4 @@ entries:
     urls:
     - https://github.com/saidsef/scapy-containerised/releases/download/scapy-0.1.0/scapy-0.1.0.tgz
     version: 0.1.0
-generated: "2024-12-29T18:58:17.842125672Z"
+generated: "2025-02-16T16:46:38.15120077Z"
