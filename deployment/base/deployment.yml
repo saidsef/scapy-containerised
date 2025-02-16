@@ -58,9 +58,11 @@ spec:
           - name: "PORT"
             value: "8080"
           - name: SCAPY_HISTFILE
-            value: "/app/.scapy_history"
+            value: "/tmp/.scapy_history"
           - name: SCAPY_USE_LIBPCAP
             value: "yes"
+          - name: MPLCONFIGDIR
+            value: "/tmp/matplotlib"
         securityContext:
           allowPrivilegeEscalation: true
           privileged: true
