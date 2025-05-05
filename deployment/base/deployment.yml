@@ -63,6 +63,8 @@ spec:
             value: "yes"
           - name: MPLCONFIGDIR
             value: "/tmp/matplotlib"
+          - name: SCAPY_CACHE_FOLDER
+            value: "/tmp/.scapy_cache"
         securityContext:
           allowPrivilegeEscalation: true
           privileged: true
