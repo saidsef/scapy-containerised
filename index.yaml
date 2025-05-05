@@ -4,6 +4,44 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: set cache folder via env var SCAPY_CACHE_FOLDER
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: README
+          url: https://github.com/saidsef/scapy-containerised/blob/main/README.md
+        - name: LICENSE
+          url: https://github.com/saidsef/scapy-containerised/blob/main/LICENSE.md
+        - name: CONTRIBUTING
+          url: https://github.com/saidsef/scapy-containerised/blob/main/CONTRIBUTING.md
+    apiVersion: v2
+    appVersion: 0.3.2
+    created: "2025-05-05T20:38:34.032633633Z"
+    description: Scapy Helm chart for Kubernetes
+    digest: 1668092ca74df7a42c17bd3a30fa7066335b27d14ba86df9a54b190ff5ee486d
+    home: https://github.com/saidsef/scapy-containerised
+    icon: https://scapy.net/assets/img/logo.png
+    keywords:
+    - scapy
+    - kubernetes
+    - packet-sniffer
+    - packet-capture
+    - network-security
+    - network-discovery
+    - security-audit
+    kubeVersion: '>= 1.25'
+    maintainers:
+    - name: saidsef
+      url: https://saidsef.github.io/argocd-applicationsets-services
+    name: scapy
+    sources:
+    - https://github.com/saidsef/scapy-containerised.git
+    type: application
+    urls:
+    - https://github.com/saidsef/scapy-containerised/releases/download/scapy-0.3.2/scapy-0.3.2.tgz
+    version: 0.3.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: Added init container to install scapy dependencies
         - kind: changed
           description: Updated ttyd to v1.7.7
@@ -521,4 +559,4 @@ entries:
     urls:
     - https://github.com/saidsef/scapy-containerised/releases/download/scapy-0.1.0/scapy-0.1.0.tgz
     version: 0.1.0
-generated: "2025-02-16T16:46:38.15120077Z"
+generated: "2025-05-05T20:38:34.032775078Z"
