@@ -10,6 +10,8 @@ image:
 env:
 - name: SCAPY_HISTFILE
   value: "/tmp/.scapy_history"
+- name: SCAPY_CACHE_FOLDER
+  value: "/tmp/.scapy_cache"
 - name: SCAPY_USE_LIBPCAP
   value: "yes"
 - name: MPLCONFIGDIR
