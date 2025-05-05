@@ -25,7 +25,7 @@ annotations:
   artifacthub.io/license: "MIT"
   artifacthub.io/changes: |
     - kind: added
-      description: set cache folder vis env var SCAPY_CACHE_FOLDER
+      description: set cache folder via env var SCAPY_CACHE_FOLDER
   artifacthub.io/links: |
     - name: README
       url: https://github.com/saidsef/scapy-containerised/blob/main/README.md
