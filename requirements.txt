@@ -7,7 +7,7 @@ libpcap>=1.11.0b7
 matplotlib>=3.8.2
 numpy>=2.2.1
 pillow>=10.3.0
-pyopenssl==25.0.0
+pyopenssl==25.1.0
 pyshark==0.6
 pyx>=0.16
 scapy[complete]==2.6.1
