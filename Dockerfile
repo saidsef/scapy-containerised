@@ -2,10 +2,10 @@ FROM docker.io/python:3.13-alpine3.21
 
 LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
 
-ENV PORT ${PORT:-8080}
-ENV SCAPY_HISTFILE "/app/.scapy_history"
-ENV SCAPY_USE_LIBPCAP "yes"
-ENV VERSION 1.7.7
+ENV PORT=${PORT:-8080}
+ENV SCAPY_HISTFILE="/app/.scapy_history"
+ENV SCAPY_USE_LIBPCAP="yes"
+ENV VERSION=1.7.7
 
 COPY requirements.txt .
 # -Csetup-args=-Dblas=blas -Csetup-args=-Dlapack=lapack
