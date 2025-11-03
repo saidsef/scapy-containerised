@@ -1687,10 +1687,11 @@
         },
         "pyx": {
             "hashes": [
-                "sha256:4d8e3e471cd3e9a9bd13d5086cdf7c0af1b0c3f3e195e74f5f63318dc40a66d8"
+                "sha256:3bc8aa809131559f7a5c0e1f1129b42c71ade36df0332113f5c5779384a39af1"
             ],
             "index": "pypi",
-            "version": "==0.16"
+            "markers": "python_version >= '3.6'",
+            "version": "==0.17"
         },
         "requests": {
             "hashes": [
