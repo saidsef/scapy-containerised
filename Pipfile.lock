@@ -1511,11 +1511,11 @@
         },
         "pkg-about": {
             "hashes": [
-                "sha256:3a7f784ad3c9189336b8b32ed094128d79372d78af8ef38f3a5b0835cea73e1f",
-                "sha256:86040e9a9f91e1959babc84a454410ccc3b8865fe91c01a224af5ce25c4491a2"
+                "sha256:3a20f6157439f5b2aa05891dd3ff84acdb2c89bc0db16a0a5273149e19e63882",
+                "sha256:bb8228be68c4e5eed4c72f216f2cc0f692a9d3403b0fce26242d09791b6dab4a"
             ],
             "markers": "python_full_version >= '3.10.0' and python_full_version < '4.0.0'",
-            "version": "==2.0.1"
+            "version": "==2.0.2"
         },
         "propcache": {
             "hashes": [
@@ -1690,7 +1690,6 @@
                 "sha256:3bc8aa809131559f7a5c0e1f1129b42c71ade36df0332113f5c5779384a39af1"
             ],
             "index": "pypi",
-            "markers": "python_version >= '3.6'",
             "version": "==0.17"
         },
         "requests": {
