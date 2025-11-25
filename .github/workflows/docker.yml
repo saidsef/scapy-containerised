@@ -31,7 +31,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Set Tag Names
       run: |
         echo "TAG=${{ github.head_ref || github.ref_name }}" >> $GITHUB_ENV
@@ -98,7 +98,7 @@ jobs:
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@v1.13.0
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Run K8s test
         run: |
           kubectl cluster-info
