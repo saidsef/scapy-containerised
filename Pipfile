@@ -17,7 +17,7 @@ pyshark = "==0.6"
 pyx = ">=0.16"
 requests = ">=2.32.0"
 zipp = ">=3.19.1"
-scapy = {extras = ["all"], version = "==2.6.1"}
+scapy = {extras = ["all"], version = "==2.7.0"}
 
 [dev-packages]
 
