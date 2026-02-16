@@ -182,6 +182,14 @@
             "markers": "python_version >= '3.9'",
             "version": "==25.4.0"
         },
+        "build": {
+            "hashes": [
+                "sha256:6a07c1b8eb6f2b311b96fcbdbce5dab5fe637ffda0fd83c9cac622e927501596",
+                "sha256:f1b91b925aa322be454f8330c6fb48b465da993d1e7e7e6fa35027ec49f3c936"
+            ],
+            "markers": "python_version >= '3.9'",
+            "version": "==1.4.0"
+        },
         "certifi": {
             "hashes": [
                 "sha256:97de8790030bbd5c2d96b7ec782fc2f7820ef8dba6db909ccf95449f2d062d4b",
@@ -900,12 +908,12 @@
         },
         "libpcap": {
             "hashes": [
-                "sha256:a4dd9e8f6655022f174b3003420098e959260dc40b0572111459496291605b42",
-                "sha256:d8c358e3566d02bdecf5f72e990e76894ef21e54da531d8a22b373ccd0e3fda1"
+                "sha256:3be5f1d38df73ea585432c5b3f38141f8b2cccf85199b42bcbf62019b79f2b74",
+                "sha256:65b43e9f4297c098df49f7cd4eab4aa0c58f83759daeb9a3f5f6da2f88f4ef08"
             ],
             "index": "pypi",
             "markers": "python_full_version >= '3.10.0' and python_full_version < '4.0.0'",
-            "version": "==1.11.0b26"
+            "version": "==1.11.0b29"
         },
         "lxml": {
             "hashes": [
@@ -1441,11 +1449,11 @@
         },
         "packaging": {
             "hashes": [
-                "sha256:29572ef2b1f17581046b3a2227d5c611fb25ec70ca1ba8554b24b0e69331a484",
-                "sha256:d443872c98d677bf60f6a1f2f8c1cb748e8fe762d2bf9d3148b5599295b0fc4f"
+                "sha256:00243ae351a257117b6a241061796684b084ed1c516a08c48a3f7e147a9d80b4",
+                "sha256:b36f1fef9334a5588b4166f8bcd26a14e521f2b55e6b9de3aaa80d3ff7a37529"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==25.0"
+            "version": "==26.0"
         },
         "parso": {
             "hashes": [
@@ -1563,11 +1571,11 @@
         },
         "pkg-about": {
             "hashes": [
-                "sha256:58584e31e06f00f694fc0206a06952ce227adf74eb18180e71b7c1c409b71fc1",
-                "sha256:a8f6aaec4778db5fa241aaea1d4953774d269d088eed7ac450fccf50dec82667"
+                "sha256:113653df313ac825eb715f94af63f6996383ece812330701903ff09612d1cc35",
+                "sha256:5f17c8507b6eb26813b22b4f307f47b27bbe57cf6a8df820d050d8b8e2ecd92e"
             ],
             "markers": "python_full_version >= '3.10.0' and python_full_version < '4.0.0'",
-            "version": "==2.0.12"
+            "version": "==2.2.0"
         },
         "prompt-toolkit": {
             "hashes": [
@@ -1721,11 +1729,11 @@
         },
         "py-utlx": {
             "hashes": [
-                "sha256:5e0fd2a7793ca9131e5c1e7d481cf54d7dadee866751c1629ea51ca7091d07a2",
-                "sha256:d537e7d9313119ff75eb66043a689f5bcf8af6bb059d1697c24dc556c5ef40c6"
+                "sha256:9b3ca01c326e0dcbc9b741529f56767f88d36a4c4b27830b74415facc9739563",
+                "sha256:f617e3977f8463250a77976a97947424989a7036f980e034a1f0cd23c8cbd7ae"
             ],
             "markers": "python_full_version >= '3.10.0' and python_full_version < '4.0.0'",
-            "version": "==2.0.5"
+            "version": "==2.2.0"
         },
         "pycparser": {
             "hashes": [
@@ -1759,6 +1767,14 @@
             ],
             "markers": "python_version >= '3.9'",
             "version": "==3.3.1"
+        },
+        "pyproject-hooks": {
+            "hashes": [
+                "sha256:1e859bd5c40fae9448642dd871adf459e5e2084186e8d2c2a79a824c970da1f8",
+                "sha256:9e5c6bfa8dcc30091c74b0cf803c81fdd29d94f01992a7707bc97babb1141913"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==1.2.0"
         },
         "pyshark": {
             "hashes": [
