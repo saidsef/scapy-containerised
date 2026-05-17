@@ -12,10 +12,11 @@ libpcap = ">=1.11.0b7"
 matplotlib = ">=3.10.9"
 numpy = ">=2.2.1"
 pillow = ">=10.3.0"
+pygments = ">=2.20.0"
 pyopenssl = "==26.2.0"
 pyshark = "==0.6"
 pyx = ">=0.16"
-requests = ">=2.32.0"
+requests = ">=2.34.1"
 zipp = ">=3.19.1"
 scapy = {extras = ["all"], version = "==2.7.0"}
 
