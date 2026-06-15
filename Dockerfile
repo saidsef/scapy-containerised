@@ -8,6 +8,8 @@ ENV PORT=${PORT:-8080}
 ENV SCAPY_HISTFILE="/app/.scapy_history"
 ENV SCAPY_USE_LIBPCAP="yes"
 ENV VERSION=1.7.7
+ENV XDG_CACHE_HOME="/tmp"
+ENV IPYTHONDIR="/tmp/.ipython"
 
 WORKDIR /app
 

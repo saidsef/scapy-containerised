@@ -10,8 +10,10 @@ image:
 env:
 - name: SCAPY_HISTFILE
   value: "/tmp/.scapy_history"
-- name: SCAPY_CACHE_FOLDER
-  value: "/tmp/.scapy_cache"
+- name: XDG_CACHE_HOME
+  value: "/tmp"
+- name: IPYTHONDIR
+  value: "/tmp/.ipython"
 - name: SCAPY_USE_LIBPCAP
   value: "yes"
 - name: MPLCONFIGDIR
