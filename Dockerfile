@@ -8,9 +8,6 @@ ENV PORT=${PORT:-8080}
 ENV SCAPY_HISTFILE="/app/.scapy_history"
 ENV SCAPY_USE_LIBPCAP="yes"
 ENV VERSION=1.7.7
-ENV UV_PROJECT_ENVIRONMENT="/app/.venv"
-ENV VIRTUAL_ENV="/app/.venv"
-ENV PATH="/app/.venv/bin:$PATH"
 
 WORKDIR /app
 
@@ -23,7 +20,8 @@ RUN apk upgrade --no-cache && \
         bison libpng libpng-dev freetype freetype-dev libffi libffi-dev openssl openssl-dev \
         tcpdump imagemagick graphviz curl libressl libpcap libpcap-dev libjpeg xdg-utils \
         proj-dev proj-util proj geos geos-dev && \
-    uv sync --frozen --no-dev && \
+    uv export --frozen --no-dev --no-hashes --format requirements-txt | \
+        uv pip install --system --no-cache -r - && \
     curl https://github.com/tsl0922/ttyd/releases/download/${VERSION}/ttyd.x86_64 -L -o /usr/local/bin/ttyd && \
     chmod +x /usr/local/bin/ttyd && \
     rm -rfv /var/cache/apk/*
