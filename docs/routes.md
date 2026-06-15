@@ -1,20 +1,28 @@
 # Routes and interfaces
 
-`ip route` is faster to type. Use Scapy when you want to **interrogate**
-the routing table from the same place you're crafting the packet, or when
-you're inside a stripped-down container with no `iproute2`.
+This guide is about understanding how your host (or container, or pod)
+makes routing decisions, and how to use Scapy to interrogate those
+decisions from the same place you're crafting packets. If you've ever
+been surprised by a packet leaving on the wrong interface, this is the
+place to start.
 
-Everything below assumes you're at the ttyd prompt at
-**http://localhost:8080**.
+`ip route` is faster to type when you just want to read the table. The
+case for Scapy here is twofold: you can ask "what would happen if I sent
+to X" in one call (`conf.route.route("X")`), and you can do it inside the
+same Python session where you're building the packet, which means no
+context-switching between tools.
+
+Everything below assumes you're at the Scapy prompt — `python -m scapy.__init__`
+from the ttyd terminal.
 
 ## What does this host think the network looks like?
 
-Drop into `scapy` and ask:
+Scapy reads the routing table at import and exposes it through `conf`:
 
 ```python
-conf.route        # IPv4 routing table
-conf.route6       # IPv6
-conf.ifaces       # all interfaces Scapy can see
+>>> conf.route        # IPv4 routing table
+>>> conf.route6       # IPv6
+>>> conf.ifaces       # all interfaces Scapy can see
 ```
 
 `conf.route` prints something like:
@@ -26,78 +34,124 @@ Network          Netmask          Gateway     Iface  Output IP   Metric
 127.0.0.0        255.0.0.0        0.0.0.0     lo     127.0.0.1   0
 ```
 
+`conf.ifaces` is more useful than `ip link` for some queries because each
+interface is a Python object — you can poke at it programmatically:
+
+```python
+>>> conf.ifaces["eth0"].mac
+'aa:bb:cc:dd:ee:ff'
+>>> conf.ifaces["eth0"].ip
+'10.0.0.5'
+```
+
 ## Which interface will a packet leave on?
 
-```python
-conf.route.route("8.8.8.8")
-# -> ('eth0', '10.0.0.5', '10.0.0.1')   (iface, source IP, next hop)
-```
-
-This is the single most useful function on this page. If a Scapy script
-"works on localhost but not against the real server", 80% of the time
-`conf.route.route(target)` is picking an interface you didn't expect.
-
-## "Where is this IP, really?"
-
-Combined check — Scapy's route + ARP for the next hop + a real ICMP
-probe:
-
-```sh
-python3 /app/scripts/routes/whereis.py 8.8.8.8
-python3 /app/scripts/routes/whereis.py 10.0.0.1
-```
-
-Output:
-
-```
-8.8.8.8: via eth0 src 10.0.0.5 gw 10.0.0.1
-  next-hop MAC: aa:bb:cc:dd:ee:ff
-  ping: OK (8.8.8.8)
-```
-
-If route looks right but MAC is empty, ARP is failing for the gateway.
-If MAC is fine but ping fails, the host or a downstream firewall is
-dropping you.
-
-## Picking the interface explicitly
+This is the single most useful function on this page:
 
 ```python
-conf.iface = "eth1"                                    # for everything after
-sniff(iface="eth1", count=10)                          # one-shot override
-sr1(IP(dst="10.1.2.3")/ICMP(), iface="eth1", verbose=0)
+>>> conf.route.route("8.8.8.8")
+('eth0', '10.0.0.5', '10.0.0.1')
 ```
 
-In single-interface containers this rarely matters. In multi-homed nodes,
-VPN gateways, or nodes with a sidecar CNI, it matters a lot.
+The return tuple is `(iface, source_ip, gateway)`. If a Scapy script
+"works against localhost but not the real server", the answer is almost
+always that `conf.route.route(target)` is picking an interface or source
+address you didn't expect. Run that one call first when something looks
+strange.
 
-## Adding a route inside the container
+## A combined "where is this IP, really?" check
+
+Three questions you'll ask about an IP — "what does my routing table say",
+"is ARP working for the next hop", and "does the host actually answer" —
+can be answered in one pass:
 
 ```python
-conf.route.add(net="172.30.0.0/16", gw="10.0.0.254")
-conf.route.delt(net="172.30.0.0/16", gw="10.0.0.254")
+>>> def whereis(ip):
+...     iface, src, gw = conf.route.route(ip)
+...     print(f"{ip}: via {iface} src {src} gw {gw}")
+...     mac = getmacbyip(gw) if gw != "0.0.0.0" else "(direct, no gw)"
+...     print(f"  next-hop MAC: {mac}")
+...     r = sr1(IP(dst=ip)/ICMP(), timeout=2, verbose=0)
+...     print(f"  ping: {'OK' if r else 'no reply'}")
+>>> whereis("8.8.8.8")
+>>> whereis("10.0.0.1")
 ```
 
-These are Scapy-internal — they tell Scapy where to send packets, but they
-**do not** touch the kernel routing table. If you want the kernel to
-route differently, drop to the shell and run `ip route add` (needs
-`NET_ADMIN`).
+If the route looks right but the MAC is empty, ARP is failing for the
+gateway — that's an L2 problem. If the MAC is fine but the ping fails,
+the path is up to the gateway and the rest is somewhere downstream.
 
-## ARP table
+As a script:
 
 ```python
-getmacbyip("10.0.0.1")          # ARPs if not cached, returns MAC
-conf.netcache.arp_cache         # current cache
+>>> !python3 /app/scripts/routes/whereis.py 8.8.8.8
+>>> !python3 /app/scripts/routes/whereis.py 10.0.0.1
 ```
 
-## Multiple routing tables
+## Forcing the interface
 
-Linux policy routing (`ip rule`) is invisible to Scapy — `conf.route`
-only reflects table `main`. If a packet leaves on a surprising interface
-and the rest of this page doesn't explain it, drop to a shell and run:
+Most of the time Scapy's automatic routing is fine. When you're on a
+multi-homed host, a node running a VPN, or a node with a sidecar CNI,
+you may need to pin a specific interface. Two ways:
 
-```sh
-ip rule
-ip route show table all
+Persistently, for everything that follows:
+
+```python
+>>> conf.iface = "eth1"
 ```
 
-Then come back to Scapy knowing which interface to pin with `iface=`.
+Just for one call:
+
+```python
+>>> sniff(iface="eth1", count=10)
+>>> sr1(IP(dst="10.1.2.3")/ICMP(), iface="eth1", verbose=0)
+```
+
+In a single-interface container this rarely matters. In multi-homed nodes
+it matters a lot, and `conf.route.route(target)` is your fastest debug.
+
+## Inspecting and adjusting ARP
+
+```python
+>>> getmacbyip("10.0.0.1")
+'aa:bb:cc:dd:ee:01'
+>>> conf.netcache.arp_cache
+```
+
+`getmacbyip` issues an ARP request if the entry isn't cached, then
+returns the MAC. `conf.netcache.arp_cache` is the current cache as a
+dict.
+
+## Adjusting routes from Scapy
+
+```python
+>>> conf.route.add(net="172.30.0.0/16", gw="10.0.0.254")
+>>> conf.route.delt(net="172.30.0.0/16", gw="10.0.0.254")
+```
+
+These changes are Scapy-internal — they tell Scapy where to send the
+packets *it* generates. They do not touch the kernel's routing table.
+If you want the kernel to route differently, drop to the shell and run
+`ip route add` (you'll need `NET_ADMIN`).
+
+This distinction matters more than it looks. If you're testing a
+workaround that depends on the kernel rewriting traffic, changing
+`conf.route` won't help. If you're testing a Scapy-generated probe and
+want it to go a specific way without touching the kernel, this is
+exactly the right tool.
+
+## When the route is in a different table
+
+Linux policy routing (`ip rule`) is invisible to `conf.route` — Scapy
+only reflects the `main` table. If a packet keeps leaving on an
+interface you can't explain and `conf.route.route` agrees with you that
+it shouldn't, there's a `ip rule` directing it elsewhere. Drop to a
+shell:
+
+```python
+>>> !ip rule
+>>> !ip route show table all
+```
+
+Then come back to Scapy knowing which interface you actually need to
+pin.
