@@ -3,6 +3,50 @@ entries:
   scapy:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: route scapy cache to /tmp via XDG_CACHE_HOME (SCAPY_CACHE_FOLDER was a no-op under read-only root filesystem)
+        - kind: fixed
+          description: silence IPython non-writable parent warning by setting IPYTHONDIR
+        - kind: removed
+          description: SCAPY_CACHE_FOLDER env var, which scapy never read
+        - kind: fixed
+          description: stop the /app emptyDir mount from shadowing the image's scripts/ directory at runtime
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: README
+          url: https://github.com/saidsef/scapy-containerised/blob/main/README.md
+        - name: LICENSE
+          url: https://github.com/saidsef/scapy-containerised/blob/main/LICENSE.md
+        - name: CONTRIBUTING
+          url: https://github.com/saidsef/scapy-containerised/blob/main/CONTRIBUTING.md
+    apiVersion: v2
+    appVersion: 0.3.3
+    created: "2026-06-15T20:56:17.650369454Z"
+    description: Scapy Helm chart for Kubernetes
+    digest: 8a01f118cd1b36f70330e32f162d1bf5c6e3671acf6204b3315981d29de0c9a7
+    home: https://github.com/saidsef/scapy-containerised
+    icon: https://scapy.net/assets/img/logo.png
+    keywords:
+    - scapy
+    - kubernetes
+    - packet-sniffer
+    - packet-capture
+    - network-security
+    - network-discovery
+    - security-audit
+    kubeVersion: '>= 1.25'
+    maintainers:
+    - name: saidsef
+      url: https://saidsef.github.io/argocd-applicationsets-services
+    name: scapy
+    sources:
+    - https://github.com/saidsef/scapy-containerised.git
+    type: application
+    urls:
+    - https://github.com/saidsef/scapy-containerised/releases/download/scapy-0.3.3/scapy-0.3.3.tgz
+    version: 0.3.3
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: set cache folder via env var SCAPY_CACHE_FOLDER
       artifacthub.io/license: MIT
@@ -559,4 +603,4 @@ entries:
     urls:
     - https://github.com/saidsef/scapy-containerised/releases/download/scapy-0.1.0/scapy-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-05T20:38:34.032775078Z"
+generated: "2026-06-15T20:56:17.650510509Z"
