@@ -3,7 +3,7 @@ apiVersion: v2
 name: scapy
 description: Scapy Helm chart for Kubernetes
 type: application
-version: &version 0.3.2
+version: &version 0.3.3
 appVersion: *version
 kubeVersion: ">= 1.25"
 home: https://github.com/saidsef/scapy-containerised
@@ -24,8 +24,14 @@ sources:
 annotations:
   artifacthub.io/license: "MIT"
   artifacthub.io/changes: |
-    - kind: added
-      description: set cache folder via env var SCAPY_CACHE_FOLDER
+    - kind: fixed
+      description: route scapy cache to /tmp via XDG_CACHE_HOME (SCAPY_CACHE_FOLDER was a no-op under read-only root filesystem)
+    - kind: fixed
+      description: silence IPython non-writable parent warning by setting IPYTHONDIR
+    - kind: removed
+      description: SCAPY_CACHE_FOLDER env var, which scapy never read
+    - kind: fixed
+      description: stop the /app emptyDir mount from shadowing the image's scripts/ directory at runtime
   artifacthub.io/links: |
     - name: README
       url: https://github.com/saidsef/scapy-containerised/blob/main/README.md

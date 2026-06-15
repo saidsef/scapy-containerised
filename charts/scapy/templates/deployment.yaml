@@ -84,9 +84,6 @@ spec:
               mountPath: /data
               subPath: data
             - name: tempfile
-              mountPath: /app
-              subPath: app
-            - name: tempfile
               mountPath: /tmp
               subPath: tmp
             - name: tempfile

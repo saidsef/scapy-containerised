@@ -86,9 +86,6 @@ spec:
             subPath: data
             readOnly: false
           - name: tempfile
-            mountPath: /app
-            subPath: app
-          - name: tempfile
             mountPath: /tmp
             subPath: tmp
             readOnly: false
