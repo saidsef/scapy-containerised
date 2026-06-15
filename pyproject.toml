@@ -1,0 +1,21 @@
+[project]
+name = "scapy-containerised"
+version = "1.7.7"
+description = "Containerised Scapy shell exposed via ttyd for interactive network analysis"
+requires-python = ">=3.14"
+dependencies = [
+  "aiohttp>=3.14.1",
+  "fonttools>=4.43.0",
+  "geoip2>=4.7.0",
+  "libpcap>=1.11.0b7",
+  "numpy>=2.4.6",
+  "pillow>=10.3.0",
+  "pygments>=2.20.0",
+  "pyopenssl==26.3.0",
+  "pyshark==0.6",
+  "scapy[all,doc,cli]==2.7.0",
+  "zipp>=4.1.0",
+]
+
+[tool.uv]
+package = false
