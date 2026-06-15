@@ -6,9 +6,8 @@ on:
       - main
     paths:
       - "Dockerfile"
-      - "Pipfile"
-      - "Pipfile.lock"
-      - "requirements.txt"
+      - "pyproject.toml"
+      - "uv.lock"
       - "scripts/**"
       - ".github/workflows/docker.yml"
   pull_request:
@@ -16,9 +15,8 @@ on:
       - main
     paths:
       - "Dockerfile"
-      - "Pipfile"
-      - "Pipfile.lock"
-      - "requirements.txt"
+      - "pyproject.toml"
+      - "uv.lock"
       - "scripts/**"
       - ".github/workflows/docker.yml"
   workflow_dispatch:

@@ -1,3 +1,5 @@
+FROM ghcr.io/astral-sh/uv:latest AS uv
+
 FROM docker.io/python:3.14-alpine3.23
 
 LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
@@ -6,24 +8,27 @@ ENV PORT=${PORT:-8080}
 ENV SCAPY_HISTFILE="/app/.scapy_history"
 ENV SCAPY_USE_LIBPCAP="yes"
 ENV VERSION=1.7.7
+ENV UV_PROJECT_ENVIRONMENT="/app/.venv"
+ENV VIRTUAL_ENV="/app/.venv"
+ENV PATH="/app/.venv/bin:$PATH"
 
-COPY requirements.txt .
-# -Csetup-args=-Dblas=blas -Csetup-args=-Dlapack=lapack
+WORKDIR /app
+
+COPY --from=uv /uv /uvx /usr/local/bin/
+COPY pyproject.toml uv.lock /app/
+
 RUN apk upgrade --no-cache && \
     apk add -U --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
         build-base gcc g++ musl-dev cmake autoconf python3-dev libstdc++ openblas-dev jpeg-dev zlib-dev \
         bison libpng libpng-dev freetype freetype-dev libffi libffi-dev openssl openssl-dev \
         tcpdump imagemagick graphviz curl libressl libpcap libpcap-dev libjpeg xdg-utils \
         proj-dev proj-util proj geos geos-dev && \
-    pip3 install --no-cache -r requirements.txt && \
+    uv sync --frozen --no-dev && \
     curl https://github.com/tsl0922/ttyd/releases/download/${VERSION}/ttyd.x86_64 -L -o /usr/local/bin/ttyd && \
     chmod +x /usr/local/bin/ttyd && \
     rm -rfv /var/cache/apk/*
 
-# Copy the scripts folder while ignoring the charts folder
 COPY scripts /app/scripts
-
-WORKDIR /app
 
 # GeoIP2 data directory
 VOLUME ["/data"]
