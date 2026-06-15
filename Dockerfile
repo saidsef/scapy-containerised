@@ -21,7 +21,8 @@ RUN apk upgrade --no-cache && \
         build-base gcc g++ musl-dev cmake autoconf python3-dev libstdc++ openblas-dev jpeg-dev zlib-dev \
         bison libpng libpng-dev freetype freetype-dev libffi libffi-dev openssl openssl-dev \
         tcpdump imagemagick graphviz curl libressl libpcap libpcap-dev libjpeg xdg-utils \
-        proj-dev proj-util proj geos geos-dev && \
+        proj-dev proj-util proj geos geos-dev \
+        texlive ghostscript && \
     uv export --frozen --no-dev --no-hashes --format requirements-txt | \
         uv pip install --system --no-cache -r - && \
     curl https://github.com/tsl0922/ttyd/releases/download/${VERSION}/ttyd.x86_64 -L -o /usr/local/bin/ttyd && \
