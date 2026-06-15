@@ -2,3 +2,6 @@
 *.swp
 *.pcap
 *.tmp
+*.pyc
+__pycache__/
+.claude/

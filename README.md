@@ -130,6 +130,11 @@ p=IP()/ICMP()
 p.pdfdump("test.pdf", target="> /tmp")
 ```
 
+## More examples
+
+Practical guides — recon, capture, routes, and Kubernetes debugging — live
+under [docs/](docs/README.md).
+
 ## Source
 
 Our latest and greatest source of scapy-containerised can be found on [GitHub](#deployment). Fork us!
