@@ -5,19 +5,15 @@ description = "Containerised Scapy shell exposed via ttyd for interactive networ
 requires-python = ">=3.14"
 dependencies = [
   "aiohttp>=3.14.1",
-  "cryptography>=42.0.4",
   "fonttools>=4.43.0",
   "geoip2>=4.7.0",
   "libpcap>=1.11.0b7",
-  "matplotlib>=3.10.9",
   "numpy>=2.4.6",
   "pillow>=10.3.0",
   "pygments>=2.20.0",
   "pyopenssl==26.3.0",
   "pyshark==0.6",
-  "pyx>=0.16",
-  "requests>=2.34.2",
-  "scapy[all]==2.7.0",
+  "scapy[all,doc,cli]==2.7.0",
   "zipp>=4.1.0",
 ]
 
