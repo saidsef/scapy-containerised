@@ -4,6 +4,44 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: icon URL points to upstream scapy logo (scapy.net no longer hosts /assets/img/logo.png)
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: README
+          url: https://github.com/saidsef/scapy-containerised/blob/main/README.md
+        - name: LICENSE
+          url: https://github.com/saidsef/scapy-containerised/blob/main/LICENSE.md
+        - name: CONTRIBUTING
+          url: https://github.com/saidsef/scapy-containerised/blob/main/CONTRIBUTING.md
+    apiVersion: v2
+    appVersion: 0.3.4
+    created: "2026-06-16T10:25:45.077000319Z"
+    description: Scapy Helm chart for Kubernetes
+    digest: 1edd06dba3055c41d57691c51eee0c8b53204e159099e340463f9b059e434285
+    home: https://github.com/saidsef/scapy-containerised
+    icon: https://raw.githubusercontent.com/secdev/scapy/master/doc/scapy/graphics/scapy_logo.png
+    keywords:
+    - scapy
+    - kubernetes
+    - packet-sniffer
+    - packet-capture
+    - network-security
+    - network-discovery
+    - security-audit
+    kubeVersion: '>= 1.25'
+    maintainers:
+    - name: saidsef
+      url: https://saidsef.github.io/argocd-applicationsets-services
+    name: scapy
+    sources:
+    - https://github.com/saidsef/scapy-containerised.git
+    type: application
+    urls:
+    - https://github.com/saidsef/scapy-containerised/releases/download/scapy-0.3.4/scapy-0.3.4.tgz
+    version: 0.3.4
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: route scapy cache to /tmp via XDG_CACHE_HOME (SCAPY_CACHE_FOLDER was a no-op under read-only root filesystem)
         - kind: fixed
           description: silence IPython non-writable parent warning by setting IPYTHONDIR
@@ -585,4 +623,4 @@ entries:
     urls:
     - https://github.com/saidsef/scapy-containerised/releases/download/scapy-0.2.0/scapy-0.2.0.tgz
     version: 0.2.0
-generated: "2026-06-15T20:56:17.650510509Z"
+generated: "2026-06-16T10:25:45.077129553Z"
