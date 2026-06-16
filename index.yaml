@@ -25,7 +25,7 @@ entries:
     description: Scapy Helm chart for Kubernetes
     digest: 8a01f118cd1b36f70330e32f162d1bf5c6e3671acf6204b3315981d29de0c9a7
     home: https://github.com/saidsef/scapy-containerised
-    icon: https://scapy.net/assets/img/logo.png
+    icon: https://raw.githubusercontent.com/secdev/scapy/master/doc/scapy/graphics/scapy_logo.png
     keywords:
     - scapy
     - kubernetes
@@ -63,7 +63,7 @@ entries:
     description: Scapy Helm chart for Kubernetes
     digest: 1668092ca74df7a42c17bd3a30fa7066335b27d14ba86df9a54b190ff5ee486d
     home: https://github.com/saidsef/scapy-containerised
-    icon: https://scapy.net/assets/img/logo.png
+    icon: https://raw.githubusercontent.com/secdev/scapy/master/doc/scapy/graphics/scapy_logo.png
     keywords:
     - scapy
     - kubernetes
@@ -105,7 +105,7 @@ entries:
     description: Scapy Helm chart for Kubernetes
     digest: da38a991f7f719bc8d025dd9407929ded980e13506776f79d741429be70cce89
     home: https://github.com/saidsef/scapy-containerised
-    icon: https://scapy.net/assets/img/logo.png
+    icon: https://raw.githubusercontent.com/secdev/scapy/master/doc/scapy/graphics/scapy_logo.png
     keywords:
     - scapy
     - kubernetes
@@ -147,7 +147,7 @@ entries:
     description: Scapy Helm chart for Kubernetes
     digest: bf70ee77c19dfe5ba2e95092d9e2785fa5aea65c081780731fedd097dccfa828
     home: https://github.com/saidsef/scapy-containerised
-    icon: https://scapy.net/assets/img/logo.png
+    icon: https://raw.githubusercontent.com/secdev/scapy/master/doc/scapy/graphics/scapy_logo.png
     keywords:
     - scapy
     - kubernetes
@@ -187,7 +187,7 @@ entries:
     description: Scapy Helm chart for Kubernetes
     digest: 119024667303c68a09969fd741e4181255dcfee17eac693b30f136fd765fe2d0
     home: https://github.com/saidsef/scapy-containerised
-    icon: https://scapy.net/assets/img/logo.png
+    icon: https://raw.githubusercontent.com/secdev/scapy/master/doc/scapy/graphics/scapy_logo.png
     keywords:
     - scapy
     - kubernetes
@@ -222,7 +222,7 @@ entries:
     description: Scapy Helm chart for Kubernetes
     digest: 622251a49964f351fc76102f4a94e603df6ef4de46ce36888f483b475b77ff9a
     home: https://github.com/saidsef/scapy-containerised
-    icon: https://scapy.net/assets/img/logo.png
+    icon: https://raw.githubusercontent.com/secdev/scapy/master/doc/scapy/graphics/scapy_logo.png
     keywords:
     - scapy
     - kubernetes
@@ -258,7 +258,7 @@ entries:
     description: Scapy Helm chart for Kubernetes
     digest: f760357d6f685f93fb0abfe20b56b23759608776a95db60bf498e3e3692516ee
     home: https://github.com/saidsef/scapy-containerised
-    icon: https://scapy.net/assets/img/logo.png
+    icon: https://raw.githubusercontent.com/secdev/scapy/master/doc/scapy/graphics/scapy_logo.png
     keywords:
     - scapy
     - kubernetes
@@ -294,7 +294,7 @@ entries:
     description: Scapy Helm chart for Kubernetes
     digest: 793f3c430b28ac17fac1893b5b632ad44dbedd4ed4ae816ade03e22f2e73743a
     home: https://github.com/saidsef/scapy-containerised
-    icon: https://scapy.net/assets/img/logo.png
+    icon: https://raw.githubusercontent.com/secdev/scapy/master/doc/scapy/graphics/scapy_logo.png
     keywords:
     - scapy
     - kubernetes
@@ -330,7 +330,7 @@ entries:
     description: Scapy Helm chart for Kubernetes
     digest: 092dc44d435060f66167e0d398edca03fa9f6c551930d42280f2244e1234e014
     home: https://github.com/saidsef/scapy-containerised
-    icon: https://scapy.net/assets/img/logo.png
+    icon: https://raw.githubusercontent.com/secdev/scapy/master/doc/scapy/graphics/scapy_logo.png
     keywords:
     - scapy
     - kubernetes
@@ -366,7 +366,7 @@ entries:
     description: Scapy Helm chart for Kubernetes
     digest: e80d99e2a1aede95537a5d5c34af3fba1a60cff9cff89d96a068ec2b29a223e6
     home: https://github.com/saidsef/scapy-containerised
-    icon: https://scapy.net/assets/img/logo.png
+    icon: https://raw.githubusercontent.com/secdev/scapy/master/doc/scapy/graphics/scapy_logo.png
     keywords:
     - scapy
     - kubernetes
@@ -402,7 +402,7 @@ entries:
     description: Scapy Helm chart for Kubernetes
     digest: 2b11503b43c2a7a1af1c41116938a2c0fdb6f4655a6a9abf284ff0bfff5b456f
     home: https://github.com/saidsef/scapy-containerised
-    icon: https://scapy.net/assets/img/logo.png
+    icon: https://raw.githubusercontent.com/secdev/scapy/master/doc/scapy/graphics/scapy_logo.png
     keywords:
     - scapy
     - kubernetes
@@ -438,7 +438,7 @@ entries:
     description: Scapy Helm chart for Kubernetes
     digest: 4ee14df93ff83c1a255c640086305ac1f7b5bac28493b85fbea5bbec21eec99c
     home: https://github.com/saidsef/scapy-containerised
-    icon: https://scapy.net/assets/img/logo.png
+    icon: https://raw.githubusercontent.com/secdev/scapy/master/doc/scapy/graphics/scapy_logo.png
     keywords:
     - scapy
     - kubernetes
@@ -585,22 +585,4 @@ entries:
     urls:
     - https://github.com/saidsef/scapy-containerised/releases/download/scapy-0.2.0/scapy-0.2.0.tgz
     version: 0.2.0
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2021-09-26T19:38:36.949408098Z"
-    description: Scapy Helm chart for Kubernetes
-    digest: 22caa2b8a0c76b4a1e2532bce4cb40f20dd227084ae0adef0ba29dccfbe450fe
-    keywords:
-    - scapy
-    - kubernetes
-    kubeVersion: '>= 1.17'
-    maintainers:
-    - email: saidsef@gamil.com
-      name: Said Sef
-      url: https://saidsef.co.uk/
-    name: scapy
-    type: application
-    urls:
-    - https://github.com/saidsef/scapy-containerised/releases/download/scapy-0.1.0/scapy-0.1.0.tgz
-    version: 0.1.0
 generated: "2026-06-15T20:56:17.650510509Z"
