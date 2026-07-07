@@ -9,7 +9,7 @@ dependencies = [
   "geoip2>=4.7.0",
   "libpcap>=1.11.0b7",
   "numpy>=2.5.0",
-  "pillow>=10.3.0",
+  "pillow>=12.3.0",
   "pygments>=2.20.0",
   "pyopenssl==26.3.0",
   "pyshark==0.6",
