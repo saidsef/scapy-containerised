@@ -11,7 +11,7 @@ dependencies = [
   "numpy>=2.5.1",
   "pillow>=12.3.0",
   "pygments>=2.20.0",
-  "pyopenssl==26.3.0",
+  "pyopenssl==26.4.0",
   "pyshark==0.6",
   "scapy[all,doc,cli]==2.7.0",
   "zipp>=4.1.0",
