@@ -1,22 +1,24 @@
-#!/bin/env python3
+#!/usr/bin/env python3
+"""Decode and print JSON bodies carried in plaintext packet payloads.
 
+Usage:  python3 /app/scripts/traffic.py eth0
+        python3 /app/scripts/traffic.py eth0 'tcp port 8080'
+"""
 import json
-import logging
-from scapy.all import *
-from scapy.utils import *
-from scapy.layers import http
+import sys
+from scapy.all import Raw, sniff
 
-load_layer('tls')
+iface = sys.argv[1] if len(sys.argv) > 1 else "eth0"
+bpf = sys.argv[2] if len(sys.argv) > 2 else None
 
-def sniffer(packet):
-  '''Takes raw packets and prints packet as string'''
-  if packet.haslayer(Raw):
-    r = packet.getlayer(Raw).load
+
+def show(p):
     try:
-      p = json.loads(r)
-      print(p)
-    except Exception as e:
-      logging.error(e)
-      pass
+        print(json.loads(p[Raw].load))
+    except (ValueError, UnicodeDecodeError):
+        pass  # non-JSON payloads are the common case, not an error
 
-sniff(iface="en0", prn=sniffer)
+
+sniff(iface=iface, filter=bpf,
+      lfilter=lambda p: p.haslayer(Raw),
+      prn=show, store=False, count=0)
