@@ -26,7 +26,7 @@ dependencies = [
   "pyshark==0.6",
   # Version floors on transitive dependencies of matplotlib and pyx.
   "fonttools>=4.43.0",
-  "numpy>=2.5.1",
+  "numpy>=2.5.2",
   "pillow>=12.3.0",
   "pygments>=2.20.0",
   "zipp>=4.1.0",
