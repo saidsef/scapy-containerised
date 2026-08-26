@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@v10.0.1
       - name: Verify uv.lock matches pyproject.toml
         run: uv lock --check
       - name: Audit uv.lock
@@ -42,7 +42,7 @@ jobs:
         # A committed Pipfile.lock or requirements.txt is parsed into the
         # dependency graph and raises alerts against pins nothing installs.
         run: |
-          found=$(git ls-files -- Pipfile Pipfile.lock 'requirements*.txt')
+          found=$(git ls-files -- ':(glob)**/Pipfile' ':(glob)**/Pipfile.lock' ':(glob)**/requirements*.txt')
           if [ -n "$found" ]; then
             echo "::error::uv.lock is the only supported manifest, remove: $found"
             exit 1
