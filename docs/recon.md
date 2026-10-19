@@ -1,6 +1,6 @@
 # Reconnaissance
 
-This guide covers using Scapy to map out a network — who is on it, what
+This guide covers using Scapy to map out a network - who is on it, what
 ports they have open, how the path to a remote host looks, and how to
 make educated guesses about what's running where.
 
@@ -10,14 +10,14 @@ intrusion-detection systems. Run them on networks you own or have written
 permission to test. If you're inside this container running against a
 production system you don't own, stop.
 
-Every example below assumes you're at the Scapy prompt — start it from
+Every example below assumes you're at the Scapy prompt - start it from
 the ttyd terminal with `python -m scapy.__init__`.
 
 ## Finding hosts on your local L2
 
 The lowest-cost way to enumerate hosts on the same broadcast domain as
 you is an ARP sweep. ARP doesn't get logged in most environments, doesn't
-cross routers, and is very fast — a /24 typically completes in a second
+cross routers, and is very fast - a /24 typically completes in a second
 or two.
 
 ```python
@@ -57,7 +57,7 @@ default, though plenty of cloud workloads have it disabled.
 ```
 
 If the sweep comes back empty against hosts you know exist, it usually
-means ICMP is being dropped — try the SYN scan below against port 443 or
+means ICMP is being dropped - try the SYN scan below against port 443 or
 22 instead. Almost nothing drops those without responding.
 
 As a script:
@@ -69,7 +69,7 @@ As a script:
 ## Looking at ports on a single host
 
 A TCP SYN scan is the fastest way to ask "what is this host listening
-on?" Scapy is not nmap — for thousands of ports you want the real thing —
+on?" Scapy is not nmap - for thousands of ports you want the real thing -
 but for a short list it's perfectly fine and you get full control over
 how the packets look.
 
@@ -126,7 +126,7 @@ world map:
 
 `world_trace` calls into PyX, which calls into a real LaTeX engine to
 render the map. The image is built with `texlive` and `ghostscript`
-already installed for this reason — if you see "PyX dependencies not
+already installed for this reason - if you see "PyX dependencies not
 installed", you're on an older build.
 
 The script wraps the GeoIP setup so you don't have to remember the conf
@@ -172,8 +172,8 @@ As a script:
 
 ## Probing DNS
 
-When you want to know whether a name resolves from where you are — not
-from your laptop — Scapy can build the query directly. This bypasses
+When you want to know whether a name resolves from where you are - not
+from your laptop - Scapy can build the query directly. This bypasses
 whatever resolver is configured in `/etc/resolv.conf` and tests the path
 to a specific server.
 
@@ -186,7 +186,7 @@ to a specific server.
 ...         print(sub, "->", r[DNS].an.rdata)
 ```
 
-For anything heavier — zone transfers, AXFR attempts, DNSSEC validation —
+For anything heavier - zone transfers, AXFR attempts, DNSSEC validation -
 reach for `dig` or `dnsx`. This pattern is meant for the "I'm already
 inside a container that can't escape to the public internet, does
 internal DNS resolve X" question.
@@ -209,8 +209,8 @@ the bytes:
 ...         hexdump(p[Raw].load)
 ```
 
-Once you've seen enough flows to spot the framing — fixed-length headers,
-length prefixes, magic bytes — you can define a `Packet` subclass that
+Once you've seen enough flows to spot the framing - fixed-length headers,
+length prefixes, magic bytes - you can define a `Packet` subclass that
 dissects it for you. Scapy's
 [guide to building a layer](https://scapy.readthedocs.io/en/latest/build_dissect.html)
 walks through that in detail.

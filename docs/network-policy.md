@@ -3,10 +3,10 @@
 This guide is about understanding what a Kubernetes NetworkPolicy actually
 does to a packet, and using Scapy to confirm or refute "the policy is the
 problem" without writing more YAML. The brief mention in
-`docs/kubernetes.md` covers the basics; this is the deeper read.
+`docs/kubernetes.md` covers the basics, this is the deeper read.
 
-All examples assume you're at the Scapy prompt — `python -m scapy.__init__`
-from the ttyd terminal at http://localhost:8080 — and that the pod is
+All examples assume you're at the Scapy prompt - `python -m scapy.__init__`
+from the ttyd terminal at http://localhost:8080 - and that the pod is
 running with the labels you want to test. For node-side inspection you
 also want `hostNetwork: true` and the `NET_ADMIN` / `NET_RAW`
 capabilities.
@@ -19,7 +19,7 @@ moment the first policy in the namespace selects a given pod for a given
 direction (ingress, egress, or both), that pod switches to default-deny
 for that direction, and the rules in the policy enumerate the *only*
 traffic that is now allowed. Add a second policy that selects the same
-pod, and the allowed set is the union of both policies' rules — they
+pod, and the allowed set is the union of both policies' rules - they
 "OR", they do not "AND". Almost every NetworkPolicy bug in the wild
 comes from someone reasoning about the rules as if they composed
 intersectively. They don't.
@@ -29,7 +29,7 @@ intersectively. They don't.
 CNI enforcement is silent. No RST, no ICMP admin-prohibited, no
 indication of any kind reaches the source. The TCP `connect()` call
 hangs until the kernel gives up. From a sniff on the source side, you
-see your SYN go out, no SYN/ACK come back, and nothing else — exactly
+see your SYN go out, no SYN/ACK come back, and nothing else - exactly
 the same shape as a host being powered off mid-flight.
 
 Distinguishing the four real outcomes is what Scapy is for here. Run
@@ -43,15 +43,15 @@ Distinguishing the four real outcomes is what Scapy is for here. Run
 
 Four cases:
 
-- `r` is a `TCP` with `flags == "SA"` — the path is open and the app
+- `r` is a `TCP` with `flags == "SA"` - the path is open and the app
   accepted the SYN. Policy allows, listener present.
-- `r` is a `TCP` with `flags == "RA"` (RST/ACK) — the path is open, the
+- `r` is a `TCP` with `flags == "RA"` (RST/ACK) - the path is open, the
   packet reached the destination kernel, and there is no listener on
-  that port. Not a policy issue; the app isn't bound.
+  that port. Not a policy issue, the app isn't bound.
 - `r` is an `ICMP` packet (usually type 3, code 13 "admin prohibited",
-  or code 10 "host admin prohibited") — something in path is explicitly
+  or code 10 "host admin prohibited") - something in path is explicitly
   rejecting. Most often kube-proxy `REJECT` rules, sometimes a firewall.
-- `r` is `None` — silent drop. NetworkPolicy is the prime suspect,
+- `r` is `None` - silent drop. NetworkPolicy is the prime suspect,
   followed by CNI blackhole and broken routing.
 
 A `None` doesn't *prove* it's NetworkPolicy, but it narrows the
@@ -118,7 +118,7 @@ that inverts the meaning.
 ```
 
 ```yaml
-# allows from nothing — equivalent to deny for this port
+# allows from nothing - equivalent to deny for this port
 - from: []
   ports:
   - port: 8080
@@ -135,12 +135,12 @@ inside an `ingress.from.podSelector`.
 
 **Egress policy on the source without ingress on the destination.** You
 allow egress from `app=payments` to `app=db` on 5432. The connection
-still fails. Look at `namespace=db` — if there is a default-deny
+still fails. Look at `namespace=db` - if there is a default-deny
 ingress policy there and no rule allows traffic from `app=payments`,
 the destination drops your SYN. From the Scapy pod in the source
-namespace this presents as `None` — exactly the same as "source egress
+namespace this presents as `None` - exactly the same as "source egress
 denied". The classifier in section 8 sees one direction of traffic and
-will tell you the SYN left the source; if the destination namespace is
+will tell you the SYN left the source, if the destination namespace is
 the problem, the next step is to run a sniff inside the destination
 namespace and look for the incoming SYN.
 
@@ -247,7 +247,7 @@ spec:
 ```
 
 `podSelector: {}` matches every pod in the namespace, the policy lists
-both directions, and there are no `ingress:` or `egress:` rules — so
+both directions, and there are no `ingress:` or `egress:` rules - so
 nothing is allowed. People apply this and then layer narrower policies
 on top to permit specific traffic. The trap is when someone applies the
 default-deny and forgets the narrower policies, or applies them in the
@@ -268,14 +268,14 @@ using the Scapy pod in a different namespace:
 
 `DENIED` is what you want for a destination the policy should be
 covering. `OTHER` (an ICMP unreachable, an RST) means the packet
-reached the kernel and something other than the policy answered — the
+reached the kernel and something other than the policy answered - the
 policy isn't applying to that pod. Check the selector.
 
 ## 7. Classifying a single probe
 
 `probe.py` sends TCP SYN probes and prints which of the four outcomes
 each one falls into. The aggregate over multiple probes is the
-diagnosis you want — a single `None` could be packet loss, three out
+diagnosis you want - a single `None` could be packet loss, three out
 of three `None` is policy or blackhole.
 
 ```python
@@ -299,8 +299,8 @@ a Service with multiple endpoints and one of them is misconfigured.
 
 ## 8. Classifying a flow from a passive sniff
 
-When you can't actively probe — for example you want to diagnose what
-the real application is doing without injecting traffic — sniff the
+When you can't actively probe - for example you want to diagnose what
+the real application is doing without injecting traffic - sniff the
 flow and let the classifier tell you which direction is broken and at
 what layer.
 
@@ -319,7 +319,7 @@ dst refused (SYN from src, RST from dst, 2 pkts)
 src never sent (0 SYN from src, 0 pkts)
 ```
 
-"`src never sent`" is the one that surprises people — it means the
+"`src never sent`" is the one that surprises people - it means the
 application never called `connect()`, which usually means DNS failed
 earlier, the config is pointing somewhere else, or the call is gated
 behind a code path that didn't execute. None of those are network

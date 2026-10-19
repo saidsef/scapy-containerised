@@ -1,7 +1,7 @@
 # Packet capture
 
 This guide is about getting bytes off the wire and doing something with
-them — decoding protocols, watching what an application is actually doing,
+them - decoding protocols, watching what an application is actually doing,
 saving traffic for later analysis, and digging into TLS without breaking
 it.
 
@@ -11,7 +11,7 @@ protocol semantics, correlate flows, decode application layers, or
 generate a reply. Most of this guide is about that second category.
 
 Every example assumes you're at the Scapy prompt inside the ttyd
-terminal — `python -m scapy.__init__` from the shell. The IPython shell
+terminal - `python -m scapy.__init__` from the shell. The IPython shell
 escape `!cmd` runs `cmd` in sh without leaving the Scapy session.
 
 ## Watching traffic go past
@@ -39,7 +39,7 @@ each packet as it arrives:
 ...       store=False, count=0)
 ```
 
-`store=False` keeps memory flat — important on a busy interface. `count=0`
+`store=False` keeps memory flat - important on a busy interface. `count=0`
 runs until you Ctrl-C.
 
 As a script:
@@ -63,7 +63,7 @@ packets. This is what you should use whenever possible.
 ```
 
 The second is `lfilter=`, a Python callable that runs once per packet in
-userspace. Slow, but it has access to Scapy's full dissection — you can
+userspace. Slow, but it has access to Scapy's full dissection - you can
 filter on fields BPF doesn't know about.
 
 ```python
@@ -72,7 +72,7 @@ filter on fields BPF doesn't know about.
 ```
 
 The rule of thumb: anything that's expressible in BPF goes in `filter=`.
-Use `lfilter=` only for things BPF can't see — protocol-layer presence,
+Use `lfilter=` only for things BPF can't see - protocol-layer presence,
 decoded field values, packet length tests beyond simple offsets.
 
 BPF syntax that covers most of what you'll write:
@@ -163,7 +163,7 @@ request object:
 ```
 
 HTTPS is more interesting because the cleartext is mostly gone. The
-useful exception is the TLS ClientHello — the SNI extension is in plain
+useful exception is the TLS ClientHello - the SNI extension is in plain
 view, and it's almost always the answer when someone asks "which
 external hosts is this pod calling".
 
@@ -286,11 +286,11 @@ Output:
 What each column means:
 
 - `retx` counts duplicated `(seq, payload_len)` in the same direction.
-  Anything above 1–2% of `pkts` is worth investigating.
+  Anything above 1-2% of `pkts` is worth investigating.
 - `ooo` is the count of packets that arrived with a sequence number
-  below what was already seen. A few is normal; many means reordering
+  below what was already seen. A few is normal, many means reordering
   on the path.
-- `zwin` is TCP zero-window advertisements. Receiver is overwhelmed —
+- `zwin` is TCP zero-window advertisements. Receiver is overwhelmed -
   often a sign of a slow consumer, not a slow network.
 - `rtt_ms` is the handshake RTT (SYN to SYN/ACK). It prints `-` if you
   started sniffing mid-flow. If you want RTT, start the sniffer first,
@@ -314,7 +314,7 @@ For plaintext protocols where you just want to read what was said,
 
 This isn't real TCP reassembly: it doesn't reorder by sequence number,
 doesn't handle retransmits, and doesn't track FIN. For anything that
-matters, save a pcap and open it in Wireshark — "Follow TCP Stream" is
+matters, save a pcap and open it in Wireshark - "Follow TCP Stream" is
 what you want.
 
 ```python

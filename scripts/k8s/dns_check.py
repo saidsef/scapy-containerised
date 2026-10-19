@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Hand-roll a DNS query straight at kube-dns. Bypasses the libc
-resolver and the pod's /etc/resolv.conf — tells you whether
+resolver and the pod's /etc/resolv.conf - tells you whether
 *the network path* to CoreDNS is fine.
 
 Find the resolver:

@@ -29,7 +29,7 @@ def record(p):
     pairs[key]["pkts"] += 1
 
 
-print(f"capturing on {iface} for {timeout}s — Ctrl-C to stop early")
+print(f"capturing on {iface} for {timeout}s - Ctrl-C to stop early")
 try:
     sniff(iface=iface, timeout=timeout, prn=record, store=False)
 except KeyboardInterrupt:

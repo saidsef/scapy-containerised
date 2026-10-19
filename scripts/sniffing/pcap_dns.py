@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Walk a pcap (any size — uses streaming reader) and print every DNS
+"""Walk a pcap (any size - uses streaming reader) and print every DNS
 question.
 
 Usage:  python3 /app/scripts/sniffing/pcap_dns.py /tmp/cap.pcap

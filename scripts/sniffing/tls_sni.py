@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extract SNI from TLS ClientHello — answers "which hosts is this pod
+"""Extract SNI from TLS ClientHello - answers "which hosts is this pod
 calling over HTTPS?" without breaking TLS.
 
 Usage:  python3 /app/scripts/sniffing/tls_sni.py eth0

@@ -14,4 +14,4 @@ r = sr1(IP(dst="resolver1.opendns.com")/UDP(dport=53)/
 if r and r.haslayer(DNS) and r[DNS].ancount:
     print("Egress IP:", r[DNS].an.rdata)
 else:
-    print("no reply — egress DNS might be intercepted or blocked")
+    print("no reply - egress DNS might be intercepted or blocked")

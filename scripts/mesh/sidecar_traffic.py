@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Watch app <-> sidecar conversation on loopback. Distinguishes "app
 never called" from "sidecar dropped" from "sidecar rejected after
-accept". Default ports are Istio's 15001 (out) and 15006 (in); pass a
+accept". Default ports are Istio's 15001 (out) and 15006 (in), pass a
 comma-separated list as the third arg for Linkerd (4140,4143) or other
 intercept ports.
 
@@ -86,7 +86,7 @@ def record(p):
 
 
 print(f"capturing {bpf!r} on {iface} for {timeout}s "
-      f"(sidecar ports: {sidecar_ports}) — Ctrl-C to stop early")
+      f"(sidecar ports: {sidecar_ports}) - Ctrl-C to stop early")
 try:
     sniff(iface=iface, filter=bpf, timeout=timeout, prn=record, store=False)
 except KeyboardInterrupt:
@@ -108,11 +108,11 @@ print(f"  RSTs observed:              {stats['rst']}")
 print(f"  FINs observed:              {stats['fin']}")
 print(f"  app SYNs with no SYN/ACK:   {silent_drops}")
 if stats["app_syn"] == 0:
-    print("  diagnosis: no traffic from app to sidecar — app isn't calling, "
+    print("  diagnosis: no traffic from app to sidecar - app isn't calling, "
           "or iptables redirect chain is missing")
 elif silent_drops > 0 and stats["sidecar_synack"] == 0:
-    print("  diagnosis: sidecar is not accepting connections — proxy may be "
+    print("  diagnosis: sidecar is not accepting connections - proxy may be "
           "down, mis-listening, or blocked by netpol")
 elif stats["rst"] > 0 and stats["sidecar_synack"] > 0:
-    print("  diagnosis: sidecar accepts then rejects — look at upstream "
+    print("  diagnosis: sidecar accepts then rejects - look at upstream "
           "side (UF/NR/UH in Envoy access log)")

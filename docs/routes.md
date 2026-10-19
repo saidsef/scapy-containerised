@@ -12,7 +12,7 @@ to X" in one call (`conf.route.route("X")`), and you can do it inside the
 same Python session where you're building the packet, which means no
 context-switching between tools.
 
-Everything below assumes you're at the Scapy prompt — `python -m scapy.__init__`
+Everything below assumes you're at the Scapy prompt - `python -m scapy.__init__`
 from the ttyd terminal.
 
 ## What does this host think the network looks like?
@@ -35,7 +35,7 @@ Network          Netmask          Gateway     Iface  Output IP   Metric
 ```
 
 `conf.ifaces` is more useful than `ip link` for some queries because each
-interface is a Python object — you can poke at it programmatically:
+interface is a Python object - you can poke at it programmatically:
 
 ```python
 >>> conf.ifaces["eth0"].mac
@@ -61,8 +61,8 @@ strange.
 
 ## A combined "where is this IP, really?" check
 
-Three questions you'll ask about an IP — "what does my routing table say",
-"is ARP working for the next hop", and "does the host actually answer" —
+Three questions you'll ask about an IP - "what does my routing table say",
+"is ARP working for the next hop", and "does the host actually answer" -
 can be answered in one pass:
 
 ```python
@@ -78,7 +78,7 @@ can be answered in one pass:
 ```
 
 If the route looks right but the MAC is empty, ARP is failing for the
-gateway — that's an L2 problem. If the MAC is fine but the ping fails,
+gateway - that's an L2 problem. If the MAC is fine but the ping fails,
 the path is up to the gateway and the rest is somewhere downstream.
 
 As a script:
@@ -129,7 +129,7 @@ dict.
 >>> conf.route.delt(net="172.30.0.0/16", gw="10.0.0.254")
 ```
 
-These changes are Scapy-internal — they tell Scapy where to send the
+These changes are Scapy-internal - they tell Scapy where to send the
 packets *it* generates. They do not touch the kernel's routing table.
 If you want the kernel to route differently, drop to the shell and run
 `ip route add` (you'll need `NET_ADMIN`).
@@ -142,7 +142,7 @@ exactly the right tool.
 
 ## When the route is in a different table
 
-Linux policy routing (`ip rule`) is invisible to `conf.route` — Scapy
+Linux policy routing (`ip rule`) is invisible to `conf.route` - Scapy
 only reflects the `main` table. If a packet keeps leaving on an
 interface you can't explain and `conf.route.route` agrees with you that
 it shouldn't, there's a `ip rule` directing it elsewhere. Drop to a

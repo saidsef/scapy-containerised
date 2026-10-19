@@ -1,15 +1,15 @@
 # CoreDNS and DNS in Kubernetes
 
 This guide is about DNS specifically as it behaves inside a Kubernetes
-cluster — the path a query takes, why a pod can issue five UDP packets
+cluster - the path a query takes, why a pod can issue five UDP packets
 to look up one hostname, and how to tell from the wire whether your
 slowness is DNS or something else. `docs/kubernetes.md` shows a single
-hand-rolled query straight at kube-dns to prove the path is up; this
+hand-rolled query straight at kube-dns to prove the path is up, this
 guide is what you reach for when the path is up but the application
 still feels wrong.
 
 Every example below assumes you're at the Scapy prompt inside the ttyd
-terminal — `python -m scapy.__init__` from the shell.
+terminal - `python -m scapy.__init__` from the shell.
 
 ## 1. The path a DNS query takes from a pod
 
@@ -22,7 +22,7 @@ options ndots:5
 ```
 
 `10.96.0.10` is the ClusterIP of the `kube-dns` Service in
-`kube-system`. It is not an address that anything listens on directly —
+`kube-system`. It is not an address that anything listens on directly -
 it's a virtual IP, intercepted by `kube-proxy` (iptables or IPVS) or by
 the cluster's eBPF dataplane, and translated to one of the CoreDNS pod
 IPs at packet-forward time.
@@ -41,14 +41,14 @@ pod libc resolver
       reply from 10.96.0.10
 ```
 
-If NodeLocal DNSCache is enabled there's one extra hop on each node —
+If NodeLocal DNSCache is enabled there's one extra hop on each node -
 see section 4.
 
 The three places worth sniffing, in order:
 
 - on the pod's interface, to see what the application asked for and
-  what came back;
-- on the CoreDNS pod, to see what CoreDNS forwarded upstream;
+  what came back,
+- on the CoreDNS pod, to see what CoreDNS forwarded upstream,
 - on the upstream resolver's interface (node host or VPC), to see what
   the world answered.
 
@@ -73,7 +73,7 @@ kubernetes.io                             -> NOERROR, the address
 ```
 
 Four queries to look up one name. A single `curl example.com` from a
-pod can easily issue five DNS packets — and if the pod's DNS path is
+pod can easily issue five DNS packets - and if the pod's DNS path is
 slow or lossy, multiplies whatever pain there is by five.
 
 You can see this on the wire from inside the pod. Run the sniffer,
@@ -86,7 +86,7 @@ then trigger a lookup from another shell or the IPython escape:
 >>> sniff(iface="eth0", filter="udp port 53", prn=show, store=False, timeout=10)
 ```
 
-Every query in one `getaddrinfo` call shares a UDP source port — the
+Every query in one `getaddrinfo` call shares a UDP source port - the
 resolver opens a socket, fires the expanded names sequentially, and
 closes it. Group by source port and you've reconstructed one
 application-level resolution.
@@ -100,9 +100,9 @@ This is what `ndots_trace.py` does for you:
 Three ways to dodge the expansion in an application that's making it
 hurt:
 
-- write fully-qualified names with a trailing `.` — `example.com.`
-  has the resolver skip the search list entirely;
-- set `dnsConfig.options` on the pod to lower `ndots` (commonly `2`);
+- write fully-qualified names with a trailing `.` - `example.com.`
+  has the resolver skip the search list entirely,
+- set `dnsConfig.options` on the pod to lower `ndots` (commonly `2`),
 - use `dnsPolicy: None` with an explicit `dnsConfig` and accept
   responsibility for your own search list.
 
@@ -151,7 +151,7 @@ Output:
 
 Two things to read out of that. A p99 an order of magnitude over the
 p50 with no timeouts usually points at a single overloaded CoreDNS
-replica — fire the same probe at one specific CoreDNS pod IP (skip
+replica - fire the same probe at one specific CoreDNS pod IP (skip
 the Service) and see if the spread follows. Non-zero timeouts at p99
 under modest load usually point at `conntrack` table pressure on the
 node, which is its own conversation but starts here.
@@ -159,8 +159,8 @@ node, which is its own conversation but starts here.
 ## 4. NodeLocal DNSCache visibility
 
 If your cluster runs NodeLocal DNSCache, every node has a
-`node-local-dns` pod listening on a link-local address — typically
-`169.254.20.10` — and pod resolv.conf is rewritten to point there
+`node-local-dns` pod listening on a link-local address - typically
+`169.254.20.10` - and pod resolv.conf is rewritten to point there
 instead of at the kube-dns Service ClusterIP. The local cache answers
 hot entries directly, and forwards misses to CoreDNS over TCP.
 
@@ -176,14 +176,14 @@ Confirming which path your pod is actually using is one sniff:
 ```
 
 If destinations are `169.254.20.10`, you're on NodeLocal. If they're
-the kube-dns ClusterIP (commonly `10.96.0.10`), you're not — either
+the kube-dns ClusterIP (commonly `10.96.0.10`), you're not - either
 the cache isn't deployed, or your pod's `dnsPolicy` opted out, or
 the DaemonSet isn't healthy on this node.
 
 A NodeLocal-enabled pod that's hitting kube-dns directly is a real
 problem. The node-local-dns process on the node configures dummy
 interface `nodelocaldns` with the link-local IP and an iptables rule
-that redirects pod-originated DNS to it; if either is missing,
+that redirects pod-originated DNS to it, if either is missing,
 traffic falls back to the Service ClusterIP and you've lost the cache
 hit-rate benefit without anyone noticing.
 
@@ -197,7 +197,7 @@ forward . /etc/resolv.conf
 ```
 
 which means CoreDNS reads the node's `/etc/resolv.conf` at startup
-and forwards to whatever nameservers the node uses — frequently a
+and forwards to whatever nameservers the node uses - frequently a
 cloud-provider VPC resolver. Some installs hard-code it:
 
 ```
@@ -228,7 +228,7 @@ sync.
 
 `ndots:5` plus a misconfigured app config can amplify a single typo
 into a burst of NXDOMAIN responses. An application that asks for
-`databse-host` (one dot? zero dots — `databse-host` has zero) will,
+`databse-host` (one dot? zero dots - `databse-host` has zero) will,
 on every retry, walk the full search list and earn an NXDOMAIN at
 each step before hitting the real upstream and getting the final
 NXDOMAIN. Four or five NXDOMAINs per app-level lookup, sometimes
@@ -256,14 +256,14 @@ application-level name is doing the damage.
 
 ## 7. DNS over TCP
 
-DNS classically goes over UDP. Responses larger than 512 bytes — and,
+DNS classically goes over UDP. Responses larger than 512 bytes - and,
 post-EDNS0, larger than whatever the client advertised, typically
-1232 or 4096 — set the truncate bit, and the client retries the same
+1232 or 4096 - set the truncate bit, and the client retries the same
 query over TCP/53. AXFR (zone transfers) and most DNS-over-TLS
 upstreams also use TCP.
 
 If your sniff filter is `udp port 53`, you miss every TCP fallback,
-and the application-level symptom — "lookup works sometimes" — is
+and the application-level symptom - "lookup works sometimes" - is
 mysterious. Use the protocol-agnostic form:
 
 ```python
@@ -271,8 +271,8 @@ mysterious. Use the protocol-agnostic form:
 ```
 
 When a single name keeps falling back to TCP, the answer it returns
-is too large for UDP — usually a service with many backends (a long
+is too large for UDP - usually a service with many backends (a long
 `A` answer) or DNSSEC-signed responses. CoreDNS's `bufsize` plugin
 and the upstream resolver's EDNS0 advertised size together determine
 where the cliff is. Sniffing on both UDP and TCP shows you the
-fallback in flight; sniffing on UDP alone shows you a partial picture.
+fallback in flight, sniffing on UDP alone shows you a partial picture.

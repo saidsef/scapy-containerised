@@ -2,7 +2,7 @@
 
 These guides walk you through using Scapy inside this container for
 network reconnaissance, packet capture, route inspection, and Kubernetes
-debugging. They are not a Scapy tutorial — the
+debugging. They are not a Scapy tutorial - the
 [official Scapy docs](https://scapy.readthedocs.io) cover the language
 itself. What's here is the practical "I'm staring at a problem, how do I
 get an answer" view.
@@ -43,7 +43,7 @@ You'll see the Scapy banner and an IPython prompt:
 ```
 
 Everything from there is Python. When a guide says "run this", paste it
-at the `>>>` prompt. Tab completion and `?` work — `arping?` shows the
+at the `>>>` prompt. Tab completion and `?` work - `arping?` shows the
 function signature and docstring, `arping??` shows the source.
 
 ## Two ways to use the guides
@@ -63,15 +63,15 @@ The `!` runs the rest of the line in `sh` and prints output back into
 your Scapy session. Useful for one-shot captures or scans where you
 don't need the result as a Python value.
 
-If you do want the result in your session — for example to filter, slice,
-or feed into another Scapy call — paste the equivalent snippet directly:
+If you do want the result in your session - for example to filter, slice,
+or feed into another Scapy call - paste the equivalent snippet directly:
 
 ```python
 >>> ans, _ = arping("10.0.0.0/24", verbose=0)
 >>> ips = [r[1].psrc for r in ans]
 ```
 
-The scripts are short and readable; if a guide refers to one, opening it
+The scripts are short and readable, if a guide refers to one, opening it
 will show you exactly what it does:
 
 ```python
@@ -110,15 +110,15 @@ kubectl -n scapy exec -it deploy/scapy -- python -m scapy.__init__
 Capturing traffic needs `CAP_NET_RAW` and `CAP_NET_ADMIN`. The Docker
 flag is `--privileged` or `--cap-add=NET_RAW --cap-add=NET_ADMIN`. In
 Kubernetes, set `securityContext.capabilities.add: [NET_RAW, NET_ADMIN]`
-and — almost always — `hostNetwork: true` if you want to see what the
+and - almost always - `hostNetwork: true` if you want to see what the
 node sees instead of what the pod sees. The Helm chart in this repo
 exposes both as values.
 
 `sniff()` blocks until `count` or `timeout` is reached. If you call it
 with neither, your prompt won't come back. The guides always set one or
-the other; if you start improvising, remember to do the same.
+the other, if you start improvising, remember to do the same.
 
-Scapy's `send` and `sr` work at layer 3 — they fill in the routing for
+Scapy's `send` and `sr` work at layer 3 - they fill in the routing for
 you. For raw frames (ARP, STP, anything pre-IP) reach for `sendp`, `srp`,
 and `sniff(iface=...)` instead.
 

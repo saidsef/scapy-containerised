@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Observe DNS search-path expansion on an interface.
 
-Sniffs UDP/53 for a window and groups queries by source port — each
+Sniffs UDP/53 for a window and groups queries by source port - each
 getaddrinfo call uses a fresh UDP source port and emits all its
 expanded queries from the same port. Pairs queries with their replies
 and labels the rcode so you can see how many lookups one application
@@ -49,7 +49,7 @@ def on_pkt(p):
             entry["rcode"] = int(dns.rcode)
 
 
-print(f"sniffing {iface} for {timeout_seconds}s — trigger a lookup now")
+print(f"sniffing {iface} for {timeout_seconds}s - trigger a lookup now")
 sniff(iface=iface, filter="udp port 53", prn=on_pkt, store=False,
       timeout=timeout_seconds)
 
@@ -81,10 +81,10 @@ for (client, sport), entries in sorted(groups.items()):
         if len(entries) == 1:
             print(f"    -> no expansion (single query)")
         else:
-            print(f"    -> 1 name, {len(entries)} queries (A+AAAA pair) — no expansion")
+            print(f"    -> 1 name, {len(entries)} queries (A+AAAA pair) - no expansion")
     elif all(rc == 3 for rc in rcodes):
-        print(f"    -> {n_names} names tried, all NXDOMAIN — likely a typo, plus ndots:5 expansion")
+        print(f"    -> {n_names} names tried, all NXDOMAIN - likely a typo, plus ndots:5 expansion")
     elif rcodes and rcodes[-1] == 0:
-        print(f"    -> {n_names} names tried, final NOERROR — ndots:5 expansion")
+        print(f"    -> {n_names} names tried, final NOERROR - ndots:5 expansion")
     else:
         print(f"    -> {n_names} names, mixed rcodes")

@@ -8,11 +8,11 @@ sides of the sidecar at once.
 
 `istioctl proxy-config` and `linkerd diagnostics` are faster when you
 want to read configuration. The case for Scapy is that the configuration
-is rarely the thing that's broken — it's the interaction between the
+is rarely the thing that's broken - it's the interaction between the
 application, the sidecar, and the remote sidecar that's broken. You need
 to see bytes on the wire and on loopback at the same time.
 
-Everything below assumes you're at the Scapy prompt — `python -m scapy.__init__`
+Everything below assumes you're at the Scapy prompt - `python -m scapy.__init__`
 from the ttyd terminal at http://localhost:8080.
 
 ## 1. The shape of mesh traffic
@@ -41,8 +41,8 @@ For Linkerd:
 - Same mTLS-on-the-wire story.
 
 So three distinct things are happening on three distinct paths, and only
-one of them (the wire) is encrypted. The other two — app to sidecar, and
-sidecar back to app — are plaintext on loopback. That's the leverage.
+one of them (the wire) is encrypted. The other two - app to sidecar, and
+sidecar back to app - are plaintext on loopback. That's the leverage.
 You can watch what the application told the sidecar to do, even when the
 wire traffic is opaque.
 
@@ -93,13 +93,13 @@ As a script:
 
 The summary at the end of the capture is the diagnostic. "12 SYNs sent,
 0 SYN/ACKs back" is a silent drop. "12 SYNs sent, 12 SYN/ACKs, 11 RSTs"
-is the sidecar accepting and then rejecting — look at the upstream side
+is the sidecar accepting and then rejecting - look at the upstream side
 next.
 
 ## 3. mTLS handshake between sidecars
 
 The wire between two sidecars is TLS. The interesting question on a
-mesh handshake isn't usually "did the cert validate" — it's "which
+mesh handshake isn't usually "did the cert validate" - it's "which
 workload identity did the peer present". In SPIFFE-based meshes (Istio,
 Linkerd) the identity is a URI in the certificate's
 SubjectAlternativeName, like:
@@ -115,9 +115,9 @@ The existing TLS handshake script already covers the standard fields
 >>> !python3 /app/scripts/sniffing/tls_handshake.py eth0
 ```
 
-For the SPIFFE URI specifically — which is the thing you actually want
-when debugging "which workload was on the other end of this connection"
-— use the SPIFFE script. It pulls the URI out of the SAN extension:
+For the SPIFFE URI specifically - which is the thing you actually want
+when debugging "which workload was on the other end of this connection" -
+use the SPIFFE script. It pulls the URI out of the SAN extension:
 
 ```python
 >>> !python3 /app/scripts/mesh/spiffe_id.py eth0
@@ -133,13 +133,13 @@ Output:
 
 The third line is just as useful as the first two. A peer with no
 SPIFFE identity is either not in the mesh at all, or the connection
-isn't going through a sidecar — which is exactly what you want to know
+isn't going through a sidecar - which is exactly what you want to know
 when you suspect traffic is bypassing the mesh.
 
 A note on cert lifetime: Istio's default workload cert is 24 hours,
 Linkerd's is 24 hours by default and often shorter. If you see
 `certificate_expired` in the TLS handshake script the morning after a
-control-plane outage, this is why. Watch the `not valid after` field —
+control-plane outage, this is why. Watch the `not valid after` field -
 if it's hours away rather than months, that's a mesh cert.
 
 ## 4. Common failure modes
@@ -148,19 +148,19 @@ The Envoy access log writes a two-letter response flag next to every
 503. The flags tell you where in the proxy the failure was. The ones
 you'll see repeatedly:
 
-- **`NR` — no route.** The destination has no matching route in the
+- **`NR` - no route.** The destination has no matching route in the
   sidecar's config. Service has no endpoints, or the `VirtualService` /
   `DestinationRule` doesn't match. On the wire: no outbound connection
   ever attempted. `sidecar_traffic.py` will show the SYN to 15001 and
   an immediate FIN from the sidecar back to the app.
 
-- **`UF` — upstream failure.** Sidecar tried to connect to the upstream
+- **`UF` - upstream failure.** Sidecar tried to connect to the upstream
   and failed. mTLS handshake error, DNS failure, network unreachable,
   TCP RST from the remote. On the wire: outbound SYN on eth0, then
   either no SYN/ACK or a TLS alert. Run `tls_handshake.py` on eth0 to
   see the alert description.
 
-- **`UH` — no healthy upstream.** Endpoints exist but the sidecar's
+- **`UH` - no healthy upstream.** Endpoints exist but the sidecar's
   health checks have marked them all unhealthy. No connection attempt
   on the wire. Look at the upstream pod's readiness probe.
 
@@ -173,11 +173,11 @@ you'll see repeatedly:
 
 - **PERMISSIVE vs STRICT mTLS.** In `PERMISSIVE` mode the sidecar
   accepts both plaintext and mTLS on the inbound port. On the wire you
-  may see flows with no ClientHello at all — the client wrote HTTP
+  may see flows with no ClientHello at all - the client wrote HTTP
   directly and the sidecar accepted it. In `STRICT` mode a plaintext
   client gets a TCP RST after the SYN/ACK. If you're migrating from
   permissive to strict and seeing 503s, run `tls_sni.py` and look for
-  flows on the service port with no SNI — those are the plaintext
+  flows on the service port with no SNI - those are the plaintext
   callers you're about to break.
 
 ## 5. Did the request even reach the sidecar?
@@ -185,8 +185,8 @@ you'll see repeatedly:
 If a single pod is bypassing the mesh, the iptables redirect chain is
 the first thing to check. The Istio init container installs rules in
 the `nat` table that redirect everything to 15001/15006. If those rules
-are missing — wrong init container, CNI conflict, `restartPolicy`
-weirdness after a node reboot — traffic flows past the sidecar entirely.
+are missing - wrong init container, CNI conflict, `restartPolicy`
+weirdness after a node reboot - traffic flows past the sidecar entirely.
 
 From the shell:
 
@@ -201,7 +201,7 @@ don't, the sidecar isn't intercepting.
 The Scapy confirmation is simpler: sniff for traffic going to the
 *original* destination port from inside the pod's network namespace. If
 the redirect is working, the app's writes never appear on eth0 with the
-original port as the destination — they get rewritten to 15001 on
+original port as the destination - they get rewritten to 15001 on
 loopback first. If the redirect is broken, you'll see the raw
 destination port on eth0:
 
@@ -257,7 +257,7 @@ sidecar is originating TLS. That's `ServiceEntry` with
 `resolution: DNS` and `tls.mode: SIMPLE` working as intended.
 
 If you see plaintext on both sides, the sidecar is TCP-proxying without
-originating TLS — the app is speaking HTTPS itself and the sidecar
+originating TLS - the app is speaking HTTPS itself and the sidecar
 isn't doing anything useful for this flow. Fine if intentional,
 surprising if not.
 
