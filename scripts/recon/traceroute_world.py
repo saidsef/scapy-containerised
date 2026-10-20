@@ -2,7 +2,7 @@
 """Traceroute one or more targets and draw the path on a world map.
 
 Needs /data/GeoLite.mmdb mounted into the container.
-Output PDF is written to /tmp/world_trace.pdf — copy it out with
+Output PDF is written to /tmp/world_trace.pdf - copy it out with
 `docker cp` or `kubectl cp`.
 
 Usage:  python3 /app/scripts/recon/traceroute_world.py saidsef.co.uk
@@ -14,7 +14,7 @@ from scapy.all import conf, traceroute_map
 
 GEOIP = "/data/GeoLite.mmdb"
 if not os.path.exists(GEOIP):
-    sys.exit(f"missing {GEOIP} — mount it with `-v /path/to/geoip:/data`")
+    sys.exit(f"missing {GEOIP} - mount it with `-v /path/to/geoip:/data`")
 
 conf.geoip_city = GEOIP
 conf.temp_files = "/tmp"

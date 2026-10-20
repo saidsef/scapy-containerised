@@ -1,6 +1,8 @@
-# Scapy Containerised
+# Scapy Containerised [![Documentation](https://readthedocs.org/projects/scapy-containerised/badge/?version=latest)](https://scapy-containerised.readthedocs.io/en/latest/)
 
 This gives you a shell inside container/namespace via TTYD, and you can use Scapy to analyse network traffic. 
+
+Full documentation: [scapy-containerised.readthedocs.io](https://scapy-containerised.readthedocs.io/).
 
 Scapy is a powerful Python-based interactive packet manipulation program and library.
 
@@ -130,10 +132,19 @@ p=IP()/ICMP()
 p.pdfdump("test.pdf", target="> /tmp")
 ```
 
-## More examples
+## Documentation
 
-Practical guides — recon, capture, routes, and Kubernetes debugging — live
-under [docs/](docs/README.md).
+The guides cover recon, packet capture, routes and Kubernetes debugging. They are published at
+[scapy-containerised.readthedocs.io](https://scapy-containerised.readthedocs.io/), with the source
+in [docs/](docs/README.md).
+
+Read the Docs builds the site from `mkdocs.yml` and `.readthedocs.yaml`. It installs the `docs`
+dependency group from `uv.lock`, and MkDocs runs in strict mode, so a broken link fails the build.
+To build the site locally:
+
+```shell
+uv run --only-group docs mkdocs serve
+```
 
 ## Source
 

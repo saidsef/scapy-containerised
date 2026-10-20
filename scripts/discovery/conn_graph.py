@@ -31,7 +31,7 @@ def record(p):
     sources.add(src)
 
 
-print(f"capturing SYNs on {iface} for {timeout}s — Ctrl-C to stop early")
+print(f"capturing SYNs on {iface} for {timeout}s - Ctrl-C to stop early")
 try:
     sniff(iface=iface, filter=bpf, timeout=timeout, prn=record, store=False)
 except KeyboardInterrupt:

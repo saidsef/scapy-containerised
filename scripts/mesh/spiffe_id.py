@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Extract SPIFFE identities from TLS handshakes on the wire. SPIFFE URIs
-live in the cert's SubjectAlternativeName as URI entries — format
+live in the cert's SubjectAlternativeName as URI entries - format
 spiffe://<trust-domain>/ns/<namespace>/sa/<service-account>. Flags peers
 with no SPIFFE identity, which is what you want to spot mesh-bypassing
 traffic.
@@ -10,7 +10,7 @@ TLSCertificate handshake message is only visible when it fits in a single
 TCP segment. That's typical for mesh-issued certs (small, single cert,
 ~1KB) but not for multi-KB public CA chains. If the end-of-capture summary
 shows TLS records seen but zero certs parsed, the certs are
-multi-segment — capture with tcpdump and analyse offline.
+multi-segment - capture with tcpdump and analyse offline.
 
 Usage:  python3 /app/scripts/mesh/spiffe_id.py
         python3 /app/scripts/mesh/spiffe_id.py eth0
@@ -96,7 +96,7 @@ def handle(p):
 
 
 print(f"watching TLS handshakes on {iface} for SPIFFE IDs "
-      f"({'forever' if count == 0 else f'{count} packets'}) — Ctrl-C to stop")
+      f"({'forever' if count == 0 else f'{count} packets'}) - Ctrl-C to stop")
 try:
     sniff(iface=iface, filter="tcp", prn=handle, store=False, count=count)
 except KeyboardInterrupt:

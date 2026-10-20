@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Naive TCP stream reassembly via PacketList.sessions(). Doesn't
-reorder by sequence or handle retransmits — Wireshark "Follow TCP
+reorder by sequence or handle retransmits - Wireshark "Follow TCP
 Stream" is the real answer. Good enough for plaintext-protocol
 triage from the ttyd prompt.
 

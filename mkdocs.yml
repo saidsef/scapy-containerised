@@ -1,0 +1,33 @@
+site_name: scapy-containerised
+repo_url: https://github.com/saidsef/scapy-containerised
+strict: true
+theme:
+  name: material
+  palette:
+    primary: teal
+  features:
+  - content.code.copy
+  - content.tabs.link
+markdown_extensions:
+- codehilite
+- admonition
+- tables
+- toc:
+    permalink: true
+    toc_depth: 3
+- pymdownx.tabbed:
+    alternate_style: true
+- pymdownx.superfences
+nav:
+  - Overview: README.md
+  - Packets:
+    - Reconnaissance: recon.md
+    - Packet capture: sniffing.md
+    - Routes and interfaces: routes.md
+  - Kubernetes:
+    - Debugging Kubernetes networking: kubernetes.md
+    - NetworkPolicy from the wire: network-policy.md
+    - Service discovery from the wire: service-discovery.md
+    - Service mesh debugging: service-mesh.md
+    - CoreDNS and DNS in Kubernetes: coredns.md
+    - CNI overlays: cni-overlay.md

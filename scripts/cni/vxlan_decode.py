@@ -46,7 +46,7 @@ def show(p):
 
 
 bpf = f"udp port {port}"
-print(f"sniffing {bpf!r} on {iface}, count={count or 'forever'} — Ctrl-C to stop")
+print(f"sniffing {bpf!r} on {iface}, count={count or 'forever'} - Ctrl-C to stop")
 try:
     sniff(iface=iface, filter=bpf, prn=show, store=False, count=count)
 except KeyboardInterrupt:

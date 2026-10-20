@@ -1,6 +1,6 @@
 # CNI overlays
 
-This guide is about inspecting CNI overlay traffic — the encapsulated
+This guide is about inspecting CNI overlay traffic - the encapsulated
 tunnel packets that carry pod-to-pod traffic between nodes when the CNI
 uses an overlay rather than routing pod CIDRs natively. It is written
 for the operator who suspects "the underlay is fine but the overlay is
@@ -12,9 +12,9 @@ hand you back a normal `IP/TCP` packet you can filter and reason about
 in one session.
 
 Every example assumes you're at the Scapy prompt inside the ttyd
-terminal — `python -m scapy.__init__` from the shell. The Scapy pod
+terminal - `python -m scapy.__init__` from the shell. The Scapy pod
 needs `hostNetwork: true` for the outer NIC to show real underlay
-traffic; without it you only see what's already been decapsulated by the
+traffic, without it you only see what's already been decapsulated by the
 kernel onto the pod's veth.
 
 ## 1. Why overlays exist
@@ -28,12 +28,12 @@ wire as on the pod's veth, just routed.
 Overlay CNIs (Flannel VXLAN, Calico in VXLAN or IPIP mode, Cilium in
 VXLAN or Geneve mode, Antrea, Weave) wrap the pod packet inside a
 tunnel between the two nodes. The underlay only ever sees node-to-node
-traffic on a single transport port; it does not need to know pod CIDRs
-exist. That isolation is the whole point — you can run a pod network on
+traffic on a single transport port, it does not need to know pod CIDRs
+exist. That isolation is the whole point - you can run a pod network on
 top of any L3 fabric.
 
 The cost is two-fold. Every packet pays an encapsulation header (typical
-50–80 bytes), so the pod MTU is smaller than the underlay MTU. And
+50-80 bytes), so the pod MTU is smaller than the underlay MTU. And
 debugging gains one layer: a broken flow can be broken at the inner
 level (pod sent wrong thing), the encapsulation level (tunnel dropped or
 mis-routed), or the underlay (node-to-node path broken). You need to be
@@ -43,20 +43,20 @@ able to look at all three.
 
 The four you will meet in practice:
 
-- **VXLAN** — UDP, default port **4789**. The payload is an 8-byte
+- **VXLAN** - UDP, default port **4789**. The payload is an 8-byte
   VXLAN header carrying a 24-bit VNI (the tenant/segment identifier),
   then a full inner Ethernet frame. Used by Flannel (default), Calico
   (`vxlanMode: Always`), Cilium (default), Antrea.
-- **Geneve** — UDP, default port **6081**. A variable-length header
+- **Geneve** - UDP, default port **6081**. A variable-length header
   with TLV options, then inner Ethernet. The on-wire shape is similar
-  to VXLAN; the options field is what makes it interesting for
+  to VXLAN, the options field is what makes it interesting for
   Cilium's per-packet metadata. Geneve is the modern choice for
   Cilium and Open vSwitch.
-- **IPIP** — IP protocol **4** (not UDP). The outer IP header is
+- **IPIP** - IP protocol **4** (not UDP). The outer IP header is
   followed directly by another IP header. No L2 in the tunnel, no
   port number. Used by Calico in `ipipMode: Always` and by some
   legacy Flannel setups.
-- **WireGuard** — UDP, typically port **51820**. The payload is
+- **WireGuard** - UDP, typically port **51820**. The payload is
   encrypted, so you can see endpoints, port, and packet size, but
   nothing inside. Used by Calico WireGuard, Cilium WireGuard, and
   Tailscale-style sidecars.
@@ -79,11 +79,11 @@ A hostNetwork Scapy pod sees the host's interfaces. There are two that
 matter:
 
 - The **underlay NIC** (commonly `eth0`, `ens5`, `bond0`) carries
-  *outer* packets — VXLAN/Geneve UDP, IPIP, WireGuard UDP — between
+  *outer* packets - VXLAN/Geneve UDP, IPIP, WireGuard UDP - between
   nodes. This is where you go to ask "is encapsulation working".
 - The **tunnel interface** (`flannel.1`, `vxlan.calico`,
   `cilium_vxlan`, `cilium_geneve`, `tunl0` for IPIP) carries
-  *inner* packets — the already-decapsulated pod traffic. This is the
+  *inner* packets - the already-decapsulated pod traffic. This is the
   same view a pod gets on its own eth0 for cross-node traffic.
 
 Two examples on the same node:
@@ -113,8 +113,8 @@ Every encapsulation eats bytes:
 - WireGuard: 60 bytes (typical).
 
 If the underlay MTU is 1500 and the CNI uses VXLAN, the pod MTU needs to
-be 1450 or lower. Stack two encapsulations — WireGuard over VXLAN,
-common on Cilium with transparent encryption — and you owe both
+be 1450 or lower. Stack two encapsulations - WireGuard over VXLAN,
+common on Cilium with transparent encryption - and you owe both
 headers, so 1390 is the safe pod MTU.
 
 The classic symptom is "small things work, large things hang": TCP
@@ -147,7 +147,7 @@ the prompt without `load_contrib`. A VXLAN packet has the shape
 ('10.244.1.5', '10.244.2.7')
 ```
 
-`getlayer(IP, 2)` asks for the second IP layer — the inner one. From
+`getlayer(IP, 2)` asks for the second IP layer - the inner one. From
 there you can drill down as normal:
 
 ```python
@@ -193,12 +193,12 @@ The packaged script:
 ```
 
 Cilium's Geneve options (security identity, source identity) are in the
-`options` field if you need them; for most debugging the VNI and inner
+`options` field if you need them, for most debugging the VNI and inner
 5-tuple are enough.
 
 ## 7. IPIP
 
-IPIP has no UDP — it sits directly on IP protocol 4. Scapy's `IP`
+IPIP has no UDP - it sits directly on IP protocol 4. Scapy's `IP`
 dissector recognises protocol 4 and decodes the inner IP automatically,
 so `pkt[IP][IP]` gives you the inner packet with no helper:
 
@@ -212,7 +212,7 @@ so `pkt[IP][IP]` gives you the inner packet with no helper:
 ```
 
 There's no VNI in IPIP, which means no multi-tenancy at the encap
-level — the segregation is purely whatever the pod CIDR allocation
+level - the segregation is purely whatever the pod CIDR allocation
 implies. If you're debugging Calico in IPIP mode, the inner IP is all
 you get.
 
@@ -238,7 +238,7 @@ Two things to look for at this level. First, persistent-keepalive
 traffic: by default WireGuard sends a 32-byte keepalive every 25
 seconds in each direction when the link is otherwise idle. If you don't
 see those, the peer is either misconfigured or down. Second, packet
-sizes — encryption adds 32 bytes of overhead per packet, so a 1450-byte
+sizes - encryption adds 32 bytes of overhead per packet, so a 1450-byte
 pod packet becomes a 1482-byte WireGuard packet. Stacked over VXLAN
 this is where the MTU math gets painful.
 
@@ -246,7 +246,7 @@ this is where the MTU math gets painful.
 
 When pod A on node 1 talks to pod B on node 2, the underlay carries the
 encapsulated packets between node 1 and node 2. In overlay mode this is
-usually symmetric — both directions take the same tunnel. In native BGP
+usually symmetric - both directions take the same tunnel. In native BGP
 setups it is *not* guaranteed: the underlay routers may choose a
 different return path, especially with ECMP across multiple links.
 
@@ -269,7 +269,7 @@ On the sending node you should see encapsulated SYN going out and the
 SYN/ACK coming back. On the receiving node you should see the SYN
 arriving and the SYN/ACK leaving. If the receiving node logs the
 outgoing SYN/ACK but the sending node never sees it arrive, the return
-path is broken in the underlay — not in the CNI.
+path is broken in the underlay - not in the CNI.
 
 The same pattern applies to native-routing CNIs, except you skip the
 encapsulation filter and look at the bare pod IPs on the underlay NIC.

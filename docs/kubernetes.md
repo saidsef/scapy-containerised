@@ -6,14 +6,14 @@ and B is silently dropping me". This guide walks through how to use
 Scapy from inside the cluster to figure that out.
 
 The shape of the problem is always the same: a packet leaves something,
-should arrive somewhere, and doesn't. The layers you peel back — pod
-interface, DNS, NetworkPolicy, Service VIP, MTU, kube-proxy, egress NAT
-— are roughly the order they tend to fail in. The numbered sections
+should arrive somewhere, and doesn't. The layers you peel back - pod
+interface, DNS, NetworkPolicy, Service VIP, MTU, kube-proxy, egress NAT -
+are roughly the order they tend to fail in. The numbered sections
 below follow that order, but you don't have to read them in sequence.
 Jump to the layer you suspect.
 
 Everything in this guide runs from the Scapy prompt inside the ttyd
-terminal — `python -m scapy.__init__` from the container shell. The
+terminal - `python -m scapy.__init__` from the container shell. The
 IPython shell escape `!cmd` runs `cmd` in sh without leaving Scapy.
 
 ## 1. Getting a Scapy pod where the problem is
@@ -79,7 +79,7 @@ amount of NetworkPolicy debugging will help.
 
 What you expect to see in a normal pod:
 
-- An `eth0` (or `cali*`, `lxc*` — depends on CNI) with a real IPv4
+- An `eth0` (or `cali*`, `lxc*` - depends on CNI) with a real IPv4
   address.
 - A default route via the node's cluster gateway.
 - IPv6 routes only if you actually have IPv6 configured.
@@ -102,7 +102,7 @@ CoreDNS directly, bypassing the libc resolver and `/etc/resolv.conf`
 entirely. That tells you whether the *network path* to CoreDNS is fine
 and whether CoreDNS itself is answering.
 
-First find the resolver — from a host shell:
+First find the resolver - from a host shell:
 
 ```sh
 kubectl -n kube-system get svc kube-dns -o jsonpath='{.spec.clusterIP}{"\n"}'
@@ -125,15 +125,15 @@ Then from the Scapy prompt:
 
 What the output means:
 
-- **No reply at all** — CoreDNS is dead, or a NetworkPolicy is blocking
+- **No reply at all** - CoreDNS is dead, or a NetworkPolicy is blocking
   egress from your namespace to kube-system. `kubectl -n kube-system get
   pods -l k8s-app=kube-dns` is the next step.
-- **rcode=3 (NXDOMAIN)** for an internal name — the resolver could
+- **rcode=3 (NXDOMAIN)** for an internal name - the resolver could
   answer, but the name isn't right. Usually a wrong `search` order in
   `/etc/resolv.conf` or a typo'd namespace.
-- **rcode=2 (SERVFAIL)** for external names — CoreDNS is up but its
+- **rcode=2 (SERVFAIL)** for external names - CoreDNS is up but its
   upstream is broken. The Corefile is where you go next.
-- **Answers come back but the app still can't connect** — DNS is not your
+- **Answers come back but the app still can't connect** - DNS is not your
   problem. Move on.
 
 As a script:
@@ -147,7 +147,7 @@ As a script:
 ## 4. Is something silently dropping traffic?
 
 NetworkPolicy doesn't return errors. When a policy denies a flow, the
-packet is just gone — no RST, no ICMP unreachable, nothing. Symptom on
+packet is just gone - no RST, no ICMP unreachable, nothing. Symptom on
 the client side is a TCP connect that hangs until the application timeout.
 
 The cleanest way to confirm a black-hole drop is to sniff for the
@@ -193,8 +193,8 @@ correctly.
 ...       count=10)
 ```
 
-If you see DNAT happen — outgoing has dst=ClusterIP, return has
-src=pod-ip — kube-proxy is fine and the problem is downstream. If both
+If you see DNAT happen - outgoing has dst=ClusterIP, return has
+src=pod-ip - kube-proxy is fine and the problem is downstream. If both
 directions show ClusterIP, look at the kube-proxy pods on the node and
 their logs.
 
@@ -207,8 +207,8 @@ As a script:
 ## 6. MTU and path-MTU
 
 The pattern that points at MTU is: small requests succeed, large
-requests hang. TLS handshakes (small) complete; the first big response
-gets stuck. CNIs that tunnel — VXLAN, IPIP, WireGuard — add overhead, and
+requests hang. TLS handshakes (small) complete, the first big response
+gets stuck. CNIs that tunnel - VXLAN, IPIP, WireGuard - add overhead, and
 if the pod MTU isn't dropped to account for it, traffic egress falls off
 a cliff for any packet over the underlay MTU.
 
@@ -223,7 +223,7 @@ which size is the largest that gets through:
 ```
 
 If 1500 fails but 1450 works, you have a tunnel overhead problem. Check
-`ip link show eth0` in the pod and on the node — both ends of the
+`ip link show eth0` in the pod and on the node - both ends of the
 tunnel need their MTU set consistently.
 
 As a script:
@@ -268,7 +268,7 @@ the public internet sees after any NAT in front of you.
 
 Compare with whatever the SaaS provider has allowlisted. Common
 mismatches: the cluster has multiple NAT gateways and nodes go through
-different ones; the egress changed recently and the allowlist is stale;
+different ones, the egress changed recently and the allowlist is stale,
 egress is configured per-namespace via a Cilium / Calico egress gateway
 that you forgot about.
 
@@ -324,6 +324,6 @@ Looks like an intermittent slowness in one app.
 
 `externalTrafficPolicy: Local` on a Service plus a LoadBalancer that
 hashes to a node without a backend equals dropped traffic. From outside
-the cluster it looks like a black hole; from inside you'd see no
+the cluster it looks like a black hole, from inside you'd see no
 problem at all. The Service's endpoint distribution across nodes is
 worth a look when this pattern appears.

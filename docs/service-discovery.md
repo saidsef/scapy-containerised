@@ -1,19 +1,19 @@
 # Service discovery from the wire
 
 This guide is about mapping out what's actually happening on a pod or
-node — who is calling whom, on what ports, with how much traffic. It is
+node - who is calling whom, on what ports, with how much traffic. It is
 the "discovery" half of "service discovery": not Kubernetes `Service`
 objects, but the empirical map of real traffic.
 
 Everything below assumes you're at the Scapy prompt inside the ttyd
-terminal — `python -m scapy.__init__` from the shell.
+terminal - `python -m scapy.__init__` from the shell.
 
 ## Why this question comes up
 
 "What services does this pod depend on" is normally answered in dev by
 tracing API calls, or in design review by reading an architecture
 diagram. Both go stale. In prod, when something is on fire and you have
-five minutes, you want the answer from the wire — what is this process
+five minutes, you want the answer from the wire - what is this process
 calling *right now*, not what it was meant to call when someone wrote
 the README. Scapy gives you exactly that.
 
@@ -33,23 +33,23 @@ A few situations where the wire-side answer is the only useful one:
 Every TCP flow has a 4-tuple: `(src_ip, src_port, dst_ip, dst_port)`.
 For service mapping, two of those four matter and two don't.
 
-The source port is ephemeral — picked at random by the kernel for each
+The source port is ephemeral - picked at random by the kernel for each
 new connection. Aggregating on it gives you one row per connection,
 which is too noisy. Drop it.
 
-The destination port is the service identity — `443` is HTTPS, `5432`
+The destination port is the service identity - `443` is HTTPS, `5432`
 is Postgres, `9092` is Kafka. Keep it.
 
-What you care about is the *connection initiator* — the side that sent
+What you care about is the *connection initiator* - the side that sent
 the SYN. The same flow seen from a tap will produce SYN, SYN/ACK, then
-data both ways; only the SYN tells you who is the client and who is the
+data both ways, only the SYN tells you who is the client and who is the
 server. Filter for SYN-without-ACK and you get a clean "client calls
 server on port" event.
 
 Aggregate over `(src_ip, dst_ip, dst_port)` and you have a directed
 graph of "this pod calls these services". For destinations behind a
 load balancer or shared frontend, the IP alone won't tell you which
-upstream the client wanted — TLS SNI does, and you can stitch it in
+upstream the client wanted - TLS SNI does, and you can stitch it in
 from the data captured by `tls_sni.py` (see the sniffing guide).
 
 ## Building a directed graph in real time
@@ -95,7 +95,7 @@ Output:
 
 To stitch SNI into the picture, run `tls_sni.py` in one ttyd tab and
 `conn_graph.py` in another, then match destination IPs by hand. Any IP
-that appears in both outputs gets a hostname annotation — useful for
+that appears in both outputs gets a hostname annotation - useful for
 LBs and shared ingress where the IP alone is ambiguous.
 
 ## Top talkers
@@ -118,7 +118,7 @@ Output:
        12,800        96   10.244.1.5  <->  8.8.8.8
 ```
 
-The pair is normalised — `(a, b)` and `(b, a)` map to the same key —
+The pair is normalised - `(a, b)` and `(b, a)` map to the same key -
 so the byte count includes both directions. For a connection where the
 pod uploads 2 MB and gets 200 kB back, you see 2.2 MB in one row, not
 two rows.
@@ -131,7 +131,7 @@ yet what's heavy.
 ## Cross-namespace and cross-cluster patterns
 
 A pod calling an IP inside your cluster CIDR is service traffic. A pod
-calling an IP outside your cluster CIDR is egress — an external API, a
+calling an IP outside your cluster CIDR is egress - an external API, a
 managed database, an S3 bucket, a telemetry sink. The distinction
 matters because egress is what your NetworkPolicy, your egress
 firewall, and your compliance audit all care about.
@@ -156,7 +156,7 @@ as cluster, and everything else as egress.
 >>> [(s, d, p) for (s, d, p) in edges if is_egress(d)]
 ```
 
-That list — destinations outside the cluster CIDRs — is your egress
+That list - destinations outside the cluster CIDRs - is your egress
 inventory. If you're about to write an egress NetworkPolicy, that is
 exactly the set you need to allow.
 
@@ -168,11 +168,11 @@ useful consequences for discovery:
 
 The sidecar pod sees all the workload's egress, which means you can
 capture on a single envoy/linkerd-proxy pod and get the full set of
-dependencies for the meshed app — no per-container coordination.
+dependencies for the meshed app - no per-container coordination.
 
 The traffic between the app container and the sidecar is loopback
 (`127.0.0.1`) inside the pod's network namespace, so if you tap inside
-the pod and aggregate by source you'll see two distinct pictures —
+the pod and aggregate by source you'll see two distinct pictures -
 loopback flows from app to sidecar, then real flows from sidecar
 outward. Filter `not src host 127.0.0.1 and not dst host 127.0.0.1`
 when you only want the egress side.
@@ -181,8 +181,8 @@ when you only want the egress side.
 >>> !python3 /app/scripts/discovery/conn_graph.py eth0 60 'not host 127.0.0.1'
 ```
 
-For deeper mesh-specific patterns — mTLS handshakes, sidecar bypass,
-xDS traffic to the control plane — the service-mesh guide is the
+For deeper mesh-specific patterns - mTLS handshakes, sidecar bypass,
+xDS traffic to the control plane - the service-mesh guide is the
 place.
 
 ## What this isn't
@@ -191,8 +191,8 @@ The output of these scripts is a snapshot, not a service catalog.
 Three caveats worth stating out loud:
 
 A long-lived connection that's open the whole window but doesn't send a
-SYN inside it won't show up in `conn_graph.py`. That's by design — the
-graph is "new connections initiated" — but it means a quiet
+SYN inside it won't show up in `conn_graph.py`. That's by design - the
+graph is "new connections initiated" - but it means a quiet
 keep-alive will be invisible. If you want to include established flows,
 capture without the SYN filter and aggregate on `(src, dst, dport)`
 across all TCP packets.
@@ -210,5 +210,5 @@ question, capture `udp` separately and aggregate the same way on
 direction is whichever side sent the first packet.
 
 Capture for longer than you think you need, sample across a
-representative timeframe, and treat the output as evidence — not the
+representative timeframe, and treat the output as evidence - not the
 final word.
