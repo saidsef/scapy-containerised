@@ -1,6 +1,6 @@
 FROM ghcr.io/astral-sh/uv:latest AS uv
 
-FROM docker.io/python:3.14-alpine3.23
+FROM docker.io/python:3.15-alpine3.23
 
 LABEL maintainer="Said Sef <saidsef@gmail.com> (saidsef.co.uk/)"
 
