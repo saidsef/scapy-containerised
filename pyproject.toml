@@ -45,5 +45,5 @@ docs = [
     "mkdocs~=1.6",
     "mkdocs-material~=9.5",
     "pygments~=2.20",
-    "pymdown-extensions~=12.3",
+    "pymdown-extensions>=12.3,<14.0",
 ]
